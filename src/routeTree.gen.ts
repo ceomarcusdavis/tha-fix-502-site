@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HostsRouteImport } from './routes/hosts'
+import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchIndexRouteImport } from './routes/watch.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 
+const HostsRoute = HostsRouteImport.update({
+  id: '/hosts',
+  path: '/hosts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestsRoute = GuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +43,58 @@ const WatchSlugRoute = WatchSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/guests': typeof GuestsRoute
+  '/hosts': typeof HostsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/guests': typeof GuestsRoute
+  '/hosts': typeof HostsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch': typeof WatchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/guests': typeof GuestsRoute
+  '/hosts': typeof HostsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/watch/$slug' | '/watch/'
+  fullPaths: '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/watch/$slug' | '/watch'
-  id: '__root__' | '/' | '/watch/$slug' | '/watch/'
+  to: '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch'
+  id: '__root__' | '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GuestsRoute: typeof GuestsRoute
+  HostsRoute: typeof HostsRoute
   WatchSlugRoute: typeof WatchSlugRoute
   WatchIndexRoute: typeof WatchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/hosts': {
+      id: '/hosts'
+      path: '/hosts'
+      fullPath: '/hosts'
+      preLoaderRoute: typeof HostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guests': {
+      id: '/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof GuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,9 +121,21 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GuestsRoute: GuestsRoute,
+  HostsRoute: HostsRoute,
   WatchSlugRoute: WatchSlugRoute,
   WatchIndexRoute: WatchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
