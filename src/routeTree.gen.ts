@@ -9,12 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as MembershipsRouteImport } from './routes/memberships'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuestsRouteImport } from './routes/guests'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchIndexRouteImport } from './routes/watch.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipsRoute = MembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HostsRoute = HostsRouteImport.update({
   id: '/hosts',
   path: '/hosts',
@@ -23,6 +37,16 @@ const HostsRoute = HostsRouteImport.update({
 const GuestsRoute = GuestsRouteImport.update({
   id: '/guests',
   path: '/guests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,44 +67,102 @@ const WatchSlugRoute = WatchSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/memberships': typeof MembershipsRoute
+  '/shop': typeof ShopRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/memberships': typeof MembershipsRoute
+  '/shop': typeof ShopRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch': typeof WatchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/memberships': typeof MembershipsRoute
+  '/shop': typeof ShopRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch/'
+  fullPaths:
+    | '/'
+    | '/community'
+    | '/events'
+    | '/guests'
+    | '/hosts'
+    | '/memberships'
+    | '/shop'
+    | '/watch/$slug'
+    | '/watch/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch'
-  id: '__root__' | '/' | '/guests' | '/hosts' | '/watch/$slug' | '/watch/'
+  to:
+    | '/'
+    | '/community'
+    | '/events'
+    | '/guests'
+    | '/hosts'
+    | '/memberships'
+    | '/shop'
+    | '/watch/$slug'
+    | '/watch'
+  id:
+    | '__root__'
+    | '/'
+    | '/community'
+    | '/events'
+    | '/guests'
+    | '/hosts'
+    | '/memberships'
+    | '/shop'
+    | '/watch/$slug'
+    | '/watch/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommunityRoute: typeof CommunityRoute
+  EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   HostsRoute: typeof HostsRoute
+  MembershipsRoute: typeof MembershipsRoute
+  ShopRoute: typeof ShopRoute
   WatchSlugRoute: typeof WatchSlugRoute
   WatchIndexRoute: typeof WatchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memberships': {
+      id: '/memberships'
+      path: '/memberships'
+      fullPath: '/memberships'
+      preLoaderRoute: typeof MembershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hosts': {
       id: '/hosts'
       path: '/hosts'
@@ -93,6 +175,20 @@ declare module '@tanstack/react-router' {
       path: '/guests'
       fullPath: '/guests'
       preLoaderRoute: typeof GuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,8 +217,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommunityRoute: CommunityRoute,
+  EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   HostsRoute: HostsRoute,
+  MembershipsRoute: MembershipsRoute,
+  ShopRoute: ShopRoute,
   WatchSlugRoute: WatchSlugRoute,
   WatchIndexRoute: WatchIndexRoute,
 }
