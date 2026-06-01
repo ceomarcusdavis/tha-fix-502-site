@@ -1,0 +1,23 @@
+import { createFileRoute } from "@tanstack/react-router";
+import type {} from "@tanstack/react-start";
+import { episodes } from "@/data/content";
+
+const BASE_URL = "";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const paths = [
+          "/", "/watch", "/hosts", "/guests", "/memberships", "/community",
+          "/events", "/blog", "/shop", "/sponsors", "/about", "/contact",
+          "/donate", "/privacy", "/terms",
+          ...episodes.map((e) => `/watch/${e.slug}`),
+        ];
+        const urls = paths.map((p) => `  <url><loc>${BASE_URL}${p}</loc></url>`).join("\n");
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
+        return new Response(xml, { headers: { "Content-Type": "application/xml", "Cache-Control": "public, max-age=3600" } });
+      },
+    },
+  },
+});
