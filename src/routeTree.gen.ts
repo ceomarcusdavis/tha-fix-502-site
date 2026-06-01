@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchIndexRouteImport } from './routes/watch.index'
+import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const WatchIndexRoute = WatchIndexRouteImport.update({
   path: '/watch/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WatchSlugRoute = WatchSlugRouteImport.update({
+  id: '/watch/$slug',
+  path: '/watch/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/watch/$slug': typeof WatchSlugRoute
   '/watch': typeof WatchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/watch/'
+  fullPaths: '/' | '/watch/$slug' | '/watch/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/watch'
-  id: '__root__' | '/' | '/watch/'
+  to: '/' | '/watch/$slug' | '/watch'
+  id: '__root__' | '/' | '/watch/$slug' | '/watch/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  WatchSlugRoute: typeof WatchSlugRoute
   WatchIndexRoute: typeof WatchIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/watch/$slug': {
+      id: '/watch/$slug'
+      path: '/watch/$slug'
+      fullPath: '/watch/$slug'
+      preLoaderRoute: typeof WatchSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  WatchSlugRoute: WatchSlugRoute,
   WatchIndexRoute: WatchIndexRoute,
 }
 export const routeTree = rootRouteImport
