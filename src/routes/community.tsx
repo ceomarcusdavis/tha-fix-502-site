@@ -40,7 +40,7 @@ function CommunityPage() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-display text-4xl md:text-6xl font-black tracking-tighter mb-5">Pull up.</h2>
           <p className="mb-8 opacity-80">Membership unlocks the community. One click and you're in.</p>
-          <Link to="/memberships" className="inline-block bg-background text-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-foreground hover:text-background transition-colors">
+          <Link to="/memberships" className="inline-block bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-accent/90 transition-colors">
             Join The Family
           </Link>
         </div>
