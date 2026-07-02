@@ -62,8 +62,8 @@
   --radius: 0.375rem;
 
   /* Tha Fix official palette — light theme.
-     Purple #552583, Gold #FDB927, Off-white #F4F4F4 */
-  --background: #F4F4F4;
+     Purple #552583, Gold #FDB927, Background #ECEFF3 */
+  --background: #ECEFF3;
   --foreground: #1a1024;
   --card: #ffffff;
   --card-foreground: #1a1024;
