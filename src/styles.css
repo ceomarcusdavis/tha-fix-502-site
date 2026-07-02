@@ -63,44 +63,45 @@
 :root {
   --radius: 0.375rem;
 
-  /* Dark cinematic by default */
-  --background: oklch(0.13 0.005 60);
-  --foreground: oklch(0.98 0.005 80);
-  --card: oklch(0.17 0.006 60);
-  --card-foreground: oklch(0.98 0.005 80);
-  --popover: oklch(0.17 0.006 60);
-  --popover-foreground: oklch(0.98 0.005 80);
-  --primary: oklch(0.82 0.16 82);            /* warm gold */
-  --primary-foreground: oklch(0.13 0.005 60);
-  --secondary: oklch(0.22 0.008 60);
-  --secondary-foreground: oklch(0.98 0.005 80);
-  --muted: oklch(0.22 0.008 60);
-  --muted-foreground: oklch(0.65 0.01 70);
-  --accent: oklch(0.22 0.008 60);
-  --accent-foreground: oklch(0.98 0.005 80);
+  /* Tha Fix official palette — light theme.
+     Purple #552583, Gold #FDB927, Off-white #F4F4F4 */
+  --background: #F4F4F4;
+  --foreground: #1a1024;
+  --card: #ffffff;
+  --card-foreground: #1a1024;
+  --popover: #ffffff;
+  --popover-foreground: #1a1024;
+  --primary: #552583;                     /* Lakers purple */
+  --primary-foreground: #ffffff;
+  --secondary: #ece6f2;
+  --secondary-foreground: #552583;
+  --muted: #ece6f2;
+  --muted-foreground: #55506a;
+  --accent: #FDB927;                      /* Gold */
+  --accent-foreground: #1a1024;
   --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 80);
-  --border: oklch(0.28 0.008 60 / 0.6);
-  --input: oklch(0.28 0.008 60);
-  --ring: oklch(0.82 0.16 82);
-  --brand: oklch(0.82 0.16 82);
-  --brand-foreground: oklch(0.13 0.005 60);
-  --surface: oklch(0.17 0.006 60);
-  --surface-elevated: oklch(0.22 0.008 60);
+  --destructive-foreground: #ffffff;
+  --border: rgba(85, 37, 131, 0.14);
+  --input: rgba(85, 37, 131, 0.18);
+  --ring: #552583;
+  --brand: #552583;
+  --brand-foreground: #ffffff;
+  --surface: #ffffff;
+  --surface-elevated: #ECE6F2;
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.17 0.006 60);
-  --sidebar-foreground: oklch(0.98 0.005 80);
-  --sidebar-primary: oklch(0.82 0.16 82);
-  --sidebar-primary-foreground: oklch(0.13 0.005 60);
-  --sidebar-accent: oklch(0.22 0.008 60);
-  --sidebar-accent-foreground: oklch(0.98 0.005 80);
-  --sidebar-border: oklch(0.28 0.008 60 / 0.6);
-  --sidebar-ring: oklch(0.82 0.16 82);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1024;
+  --sidebar-primary: #552583;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #FDB927;
+  --sidebar-accent-foreground: #1a1024;
+  --sidebar-border: rgba(85, 37, 131, 0.14);
+  --sidebar-ring: #552583;
 }
 
 @layer base {
