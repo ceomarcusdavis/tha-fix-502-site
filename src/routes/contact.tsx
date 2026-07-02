@@ -29,7 +29,7 @@ function ContactPage() {
               <div key={c.label} className="p-6 bg-surface border border-border">
                 <c.icon className="w-6 h-6 text-brand mb-3" />
                 <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-1">{c.label}</div>
-                <a href={`mailto:${c.value}`} className="font-display text-xl font-bold hover:text-brand">{c.value}</a>
+                <a href={`mailto:${c.value}`} className="font-display text-xl font-bold hover:text-accent">{c.value}</a>
               </div>
             ))}
           </div>

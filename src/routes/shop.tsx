@@ -31,7 +31,7 @@ function ShopPage() {
               </div>
               <div className="flex justify-between items-start gap-3">
                 <div>
-                  <h3 className="font-bold uppercase text-sm tracking-wider group-hover:text-brand">{p.name}</h3>
+                  <h3 className="font-bold uppercase text-sm tracking-wider group-hover:text-accent">{p.name}</h3>
                   <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">{p.category}</p>
                 </div>
                 <span className="font-display text-xl font-black text-brand">${p.price}</span>

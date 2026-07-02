@@ -28,7 +28,7 @@ function CommunityPage() {
       <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid sm:grid-cols-2 gap-6">
           {features.map((f) => (
-            <div key={f.title} className="p-8 border border-border bg-surface hover:border-brand transition-colors">
+            <div key={f.title} className="p-8 border border-border bg-surface hover:border-accent transition-colors">
               <f.icon className="w-7 h-7 text-brand mb-5" />
               <h3 className="font-display text-2xl font-bold mb-3">{f.title}</h3>
               <p className="text-muted-foreground">{f.body}</p>

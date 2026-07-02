@@ -34,7 +34,7 @@ function BlogPage() {
               <div className="flex gap-4 text-xs uppercase tracking-widest text-brand font-bold mb-3">
                 <span>{p.category}</span><span className="text-muted-foreground">{p.read} read</span>
               </div>
-              <h2 className="font-display text-2xl font-bold leading-tight mb-3 group-hover:text-brand transition-colors">{p.title}</h2>
+              <h2 className="font-display text-2xl font-bold leading-tight mb-3 group-hover:text-accent transition-colors">{p.title}</h2>
               <p className="text-sm text-muted-foreground">{p.excerpt}</p>
             </article>
           ))}
