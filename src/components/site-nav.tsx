@@ -59,7 +59,7 @@ export function SiteNav() {
           </Link>
           <Link
             to="/memberships"
-            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+            className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-accent/90 transition-colors"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Join
