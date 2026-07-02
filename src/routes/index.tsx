@@ -56,7 +56,7 @@ function Index() {
               <Link
                 to="/watch/$slug"
                 params={{ slug: featured.slug }}
-                className="inline-flex items-center gap-2.5 bg-foreground text-background px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-brand hover:text-brand-foreground transition-colors"
+                className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors"
               >
                 <Play className="w-4 h-4 fill-current" />
                 Watch Episode
@@ -145,7 +145,7 @@ function Index() {
                 <div className="aspect-[3/4] overflow-hidden bg-surface border border-border mb-4">
                   <img src={g.image} alt={g.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
                 </div>
-                <h3 className="font-display text-lg font-bold group-hover:text-brand transition-colors">{g.name}</h3>
+                <h3 className="font-display text-lg font-bold group-hover:text-accent transition-colors">{g.name}</h3>
                 <p className="text-xs text-muted-foreground uppercase tracking-wider mt-1">{g.title}</p>
               </Link>
             ))}
@@ -168,7 +168,7 @@ function Index() {
               Get the uncut episodes, early access, behind-the-scenes content, member livestreams, and a private community of people who get it.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/memberships" className="bg-background text-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-foreground hover:text-background transition-colors">
+              <Link to="/memberships" className="bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors">
                 See Membership Plans
               </Link>
               <Link to="/community" className="border border-brand-foreground/30 px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-brand-foreground/10 transition-colors">
@@ -216,7 +216,7 @@ function Index() {
                 </div>
                 <div className="flex justify-between gap-3">
                   <div>
-                    <h3 className="text-sm font-bold uppercase tracking-wider group-hover:text-brand transition-colors">{p.name}</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-wider group-hover:text-accent transition-colors">{p.name}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{p.category}</p>
                   </div>
                   <span className="font-display font-black text-brand">${p.price}</span>
@@ -235,7 +235,7 @@ function Index() {
             { icon: Calendar, eyebrow: "Live Events", title: "Summer Tour 2026", body: "Six cities. Live shows, town halls, and member meetups across the country.", cta: "See Events", to: "/events" as const },
             { icon: Headphones, eyebrow: "Sponsors", title: "Partner With Us", body: "Reach an engaged audience that trusts our voice. Talk to our partnerships team.", cta: "Become a Sponsor", to: "/sponsors" as const },
           ].map((b) => (
-            <Link key={b.title} to={b.to} className="p-8 border border-border bg-background hover:border-brand transition-colors group">
+            <Link key={b.title} to={b.to} className="p-8 border border-border bg-background hover:border-accent transition-colors group">
               <b.icon className="w-7 h-7 text-brand mb-6" />
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">{b.eyebrow}</div>
               <h3 className="font-display text-2xl font-bold mb-3">{b.title}</h3>
@@ -283,7 +283,7 @@ function Index() {
             />
             <button
               type="submit"
-              className="bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:brightness-110"
+              className="bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors"
             >
               Subscribe
             </button>

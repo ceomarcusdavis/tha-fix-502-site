@@ -29,8 +29,8 @@ export function SiteNav() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border"
-          : "bg-gradient-to-b from-background/90 to-transparent"
+          ? "bg-white/85 backdrop-blur-md border-b border-border"
+          : "bg-gradient-to-b from-white/90 to-transparent"
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
@@ -59,7 +59,7 @@ export function SiteNav() {
           </Link>
           <Link
             to="/memberships"
-            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+            className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-accent/90 transition-colors"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Join
@@ -75,7 +75,7 @@ export function SiteNav() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-background">
+        <div className="lg:hidden border-t border-border bg-white">
           <nav className="flex flex-col px-6 py-4 gap-1">
             {links.map((l) => (
               <Link

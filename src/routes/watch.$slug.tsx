@@ -81,10 +81,10 @@ function EpisodePage() {
               Now we talk it.
             </p>
             <div className="flex gap-3 mt-10">
-              <button className="inline-flex items-center gap-2 bg-surface border border-border px-5 py-3 text-xs font-bold uppercase tracking-widest hover:border-brand">
+              <button className="inline-flex items-center gap-2 bg-surface border border-border px-5 py-3 text-xs font-bold uppercase tracking-widest hover:border-accent">
                 <Share2 className="w-4 h-4" /> Share
               </button>
-              <button className="inline-flex items-center gap-2 bg-surface border border-border px-5 py-3 text-xs font-bold uppercase tracking-widest hover:border-brand">
+              <button className="inline-flex items-center gap-2 bg-surface border border-border px-5 py-3 text-xs font-bold uppercase tracking-widest hover:border-accent">
                 <Heart className="w-4 h-4" /> Save
               </button>
             </div>
@@ -95,13 +95,13 @@ function EpisodePage() {
               <h3 className="font-display text-2xl font-bold mb-1">{ep.guest}</h3>
               <p className="text-sm text-muted-foreground">Hosted by {ep.host}</p>
             </div>
-            <Link to="/memberships" className="block bg-brand text-brand-foreground p-6 hover:brightness-110 transition-all">
+            <Link to="/memberships" className="block bg-accent text-accent-foreground p-6 hover:bg-accent/90 transition-colors">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-70 mb-2">Members Get More</div>
               <h3 className="font-display text-2xl font-bold mb-3">Unlock the uncut version</h3>
               <p className="text-sm opacity-80 mb-4">Extended interview, post-show debrief, and full member archive.</p>
               <span className="text-xs font-bold uppercase tracking-widest border-b border-current pb-0.5">Become a Member →</span>
             </Link>
-            <Link to="/shop" className="block bg-surface border border-border p-6 hover:border-brand transition-colors">
+            <Link to="/shop" className="block bg-surface border border-border p-6 hover:border-accent transition-colors">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand mb-2">Wear It</div>
               <h3 className="font-display text-lg font-bold">Shop episode-inspired drops</h3>
             </Link>

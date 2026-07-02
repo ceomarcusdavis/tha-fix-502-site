@@ -22,14 +22,14 @@ function DonatePage() {
         <div className="max-w-3xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
             {[15, 25, 50, 100].map((amt) => (
-              <button key={amt} className="border border-border bg-surface hover:border-brand hover:bg-brand hover:text-brand-foreground transition-colors py-5 font-display text-2xl font-bold">
+              <button key={amt} className="border border-border bg-surface hover:border-accent hover:bg-accent hover:text-accent-foreground transition-colors py-5 font-display text-2xl font-bold">
                 ${amt}
               </button>
             ))}
           </div>
           <div className="flex gap-3">
-            <input placeholder="Custom amount" className="flex-1 bg-surface border border-border px-4 py-4 text-sm focus:outline-none focus:border-brand" />
-            <button className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:brightness-110">
+            <input placeholder="Custom amount" className="flex-1 bg-surface border border-border px-4 py-4 text-sm focus:outline-none focus:border-accent" />
+            <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-accent/90 transition-colors">
               <Heart className="w-4 h-4 fill-current" /> Donate
             </button>
           </div>

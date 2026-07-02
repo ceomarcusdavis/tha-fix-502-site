@@ -35,7 +35,7 @@ export function EpisodeCard({ ep, size = "md" }: { ep: Episode; size?: "sm" | "m
         </div>
       </div>
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display font-bold text-base leading-tight group-hover:text-brand transition-colors">
+        <h3 className="font-display font-bold text-base leading-tight group-hover:text-accent transition-colors">
           {ep.title}
         </h3>
       </div>

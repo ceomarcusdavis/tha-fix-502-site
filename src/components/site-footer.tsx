@@ -34,12 +34,12 @@ const cols = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-background mt-24">
+    <footer className="border-t border-border bg-[#1A1A1A] mt-24">
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-16">
         <div className="grid lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-2 max-w-sm">
             <img src={logoAsset.url} alt="Tha Fix" className="h-14 w-auto mb-5" />
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            <p className="text-sm text-white/60 leading-relaxed mb-6">
               We lived it. Now we talk it. A media network for real conversations on
               culture, community, entrepreneurship, and transformation.
             </p>
@@ -48,7 +48,7 @@ export function SiteFooter() {
                 <a
                   key={i}
                   href="#"
-                  className="size-9 rounded-sm border border-border grid place-items-center text-foreground/60 hover:text-brand hover:border-brand transition-colors"
+                  className="size-9 rounded-sm border border-white/20 grid place-items-center text-white/60 hover:text-accent hover:border-accent transition-colors"
                   aria-label="Social link"
                 >
                   <Icon className="w-4 h-4" />
@@ -58,7 +58,7 @@ export function SiteFooter() {
           </div>
           {cols.map((c) => (
             <div key={c.title}>
-              <h4 className="font-display text-xs uppercase tracking-[0.2em] text-brand mb-5">
+              <h4 className="font-display text-xs uppercase tracking-[0.2em] text-white mb-5">
                 {c.title}
               </h4>
               <ul className="space-y-3">
@@ -66,7 +66,7 @@ export function SiteFooter() {
                   <li key={l.to}>
                     <Link
                       to={l.to}
-                      className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+                      className="text-sm text-white/70 hover:text-white transition-colors"
                     >
                       {l.label}
                     </Link>
@@ -76,11 +76,11 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-muted-foreground">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-white/60">
           <span>© {new Date().getFullYear()} Tha Fix Media Network. All rights reserved.</span>
           <div className="flex gap-6">
-            <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-foreground">Terms & Conditions</Link>
+            <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white">Terms & Conditions</Link>
           </div>
         </div>
       </div>

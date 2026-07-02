@@ -28,7 +28,7 @@ function CommunityPage() {
       <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid sm:grid-cols-2 gap-6">
           {features.map((f) => (
-            <div key={f.title} className="p-8 border border-border bg-surface hover:border-brand transition-colors">
+            <div key={f.title} className="p-8 border border-border bg-surface hover:border-accent transition-colors">
               <f.icon className="w-7 h-7 text-brand mb-5" />
               <h3 className="font-display text-2xl font-bold mb-3">{f.title}</h3>
               <p className="text-muted-foreground">{f.body}</p>
@@ -40,7 +40,7 @@ function CommunityPage() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-display text-4xl md:text-6xl font-black tracking-tighter mb-5">Pull up.</h2>
           <p className="mb-8 opacity-80">Membership unlocks the community. One click and you're in.</p>
-          <Link to="/memberships" className="inline-block bg-background text-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-foreground hover:text-background transition-colors">
+          <Link to="/memberships" className="inline-block bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-accent/90 transition-colors">
             Join The Family
           </Link>
         </div>
