@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Play } from "lucide-react";
+import logoAsset from "@/assets/thafix-logo.png.asset.json";
 
 const links = [
   { to: "/watch", label: "Watch" },
@@ -34,9 +35,7 @@ export function SiteNav() {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <span className="font-display font-black text-xl md:text-2xl tracking-tighter text-brand">
-            THA<span className="text-foreground">FIX</span>
-          </span>
+          <img src={logoAsset.url} alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-foreground/70">
