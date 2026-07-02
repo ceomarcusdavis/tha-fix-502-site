@@ -24,9 +24,9 @@ function AboutPage() {
             <img src={heroImg} alt="The hosts of Tha Fix" className="w-full h-full object-cover" />
           </div>
           <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
-            <p>Tha Fix started in a back room with two microphones and a question: <em>what would real talk look like if no one was performing?</em></p>
-            <p>Today it's a media network built on the same principle. We bring lived experience and earned perspective to the conversations that shape our culture — sports, politics, business, faith, recovery, organizing, the block, the boardroom, all of it.</p>
-            <p>The hosts have been where these conversations live. The guests are people whose names you know and people whose names you should. The community is the family.</p>
+            <p>Tha Fix brings together two men with decades of lived experience and unfiltered perspective.</p>
+            <p>Hosted by <strong>Jon Mike</strong> and <strong>Marcus Davis</strong>, two brothers who met behind bars and rebuilt their lives outside the walls — now breaking down sports, politics, violence, community, and the culture that shapes us all.</p>
+            <p>From prison to purpose, every conversation is raw, real, and relevant. No fluff. No fake. Just the fix you've been missing.</p>
             <p className="font-display text-3xl font-bold text-brand italic">"We lived it. Now we talk it."</p>
           </div>
         </div>
