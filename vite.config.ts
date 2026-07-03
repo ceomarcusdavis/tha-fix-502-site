@@ -7,9 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
+ssr: {
+    // externalize the TanStack packages so Nitro/Vite won't bundle them for SSR
+    external: [
+      '@tanstack/react-router',
+      '@tanstack/react-query',
+      // include a RegExp so any internal paths like build/modern/* are also externalized
+      /^@tanstack\/.*/,
+    ],
   },
 });
