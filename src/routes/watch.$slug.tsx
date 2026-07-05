@@ -95,7 +95,7 @@ function EpisodePage() {
               <h3 className="font-display text-2xl font-bold mb-1">{ep.guest}</h3>
               <p className="text-sm text-muted-foreground">Hosted by {ep.host}</p>
             </div>
-            <Link to="/memberships" className="block bg-accent text-accent-foreground p-6 hover:bg-accent/90 transition-colors">
+            <Link to="/memberships" className="block bg-brand text-brand-foreground p-6 hover:bg-[#6A33A5] transition-colors">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-70 mb-2">Members Get More</div>
               <h3 className="font-display text-2xl font-bold mb-3">Unlock the uncut version</h3>
               <p className="text-sm opacity-80 mb-4">Extended interview, post-show debrief, and full member archive.</p>

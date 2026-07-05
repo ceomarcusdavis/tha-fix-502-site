@@ -64,7 +64,7 @@
   /* Tha Fix official palette — light theme.
      Purple #552583, Gold #FDB927, Background #ECEFF3 */
   --background: #ECEFF3;
-  --foreground: #1a1024;
+  --foreground: #444444;
   --card: #ffffff;
   --card-foreground: #1a1024;
   --popover: #ffffff;
@@ -117,6 +117,7 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    color: #1D1D1D;
   }
 }
 
