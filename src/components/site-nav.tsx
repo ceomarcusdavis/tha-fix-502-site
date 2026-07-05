@@ -29,8 +29,8 @@ export function SiteNav() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/85 backdrop-blur-md border-b border-border"
-          : "bg-gradient-to-b from-white/90 to-transparent"
+          ? "bg-white backdrop-blur-md border-b border-border"
+          : "bg-gradient-to-b from-white to-transparent"
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
@@ -38,12 +38,12 @@ export function SiteNav() {
           <img src={logoAsset.url} alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-foreground/70">
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-[#2B2B2B]">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="hover:text-foreground transition-colors data-[status=active]:text-brand"
+              className="hover:text-brand transition-colors data-[status=active]:text-brand data-[status=active]:underline data-[status=active]:decoration-accent data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
             >
               {l.label}
             </Link>
@@ -53,13 +53,13 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <Link
             to="/donate"
-            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-foreground/70 hover:text-foreground transition-colors"
+            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-[#2B2B2B] hover:text-brand transition-colors"
           >
             Donate
           </Link>
           <Link
             to="/memberships"
-            className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-accent/90 transition-colors"
+            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Join
