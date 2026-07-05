@@ -168,7 +168,7 @@ function Index() {
               Get the uncut episodes, early access, behind-the-scenes content, member livestreams, and a private community of people who get it.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/memberships" className="bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors">
+              <Link to="/memberships" className="bg-white text-brand px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-gray-100 transition-colors">
                 See Membership Plans
               </Link>
               <Link to="/community" className="border border-brand-foreground/30 px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-brand-foreground/10 transition-colors">
