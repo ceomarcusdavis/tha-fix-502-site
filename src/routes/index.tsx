@@ -56,7 +56,7 @@ function Index() {
               <Link
                 to="/watch/$slug"
                 params={{ slug: featured.slug }}
-                className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors"
+                className="inline-flex items-center gap-2.5 bg-brand text-brand-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors"
               >
                 <Play className="w-4 h-4 fill-current" />
                 Watch Episode
@@ -168,7 +168,7 @@ function Index() {
               Get the uncut episodes, early access, behind-the-scenes content, member livestreams, and a private community of people who get it.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/memberships" className="bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors">
+              <Link to="/memberships" className="bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors">
                 See Membership Plans
               </Link>
               <Link to="/community" className="border border-brand-foreground/30 px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-brand-foreground/10 transition-colors">
@@ -283,7 +283,7 @@ function Index() {
             />
             <button
               type="submit"
-              className="bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-accent/90 transition-colors"
+              className="bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors"
             >
               Subscribe
             </button>

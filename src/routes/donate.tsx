@@ -29,7 +29,7 @@ function DonatePage() {
           </div>
           <div className="flex gap-3">
             <input placeholder="Custom amount" className="flex-1 bg-surface border border-border px-4 py-4 text-sm focus:outline-none focus:border-accent" />
-            <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-accent/90 transition-colors">
+            <button className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-8 py-4 font-bold uppercase tracking-widest text-sm hover:bg-[#6A33A5] transition-colors">
               <Heart className="w-4 h-4 fill-current" /> Donate
             </button>
           </div>

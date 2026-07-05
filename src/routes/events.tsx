@@ -40,7 +40,7 @@ function EventsPage() {
                   <span className="inline-flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{e.venue}</span>
                 </p>
               </div>
-              <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-accent/90 transition-colors w-fit">
+              <button className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors w-fit">
                 Register <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
