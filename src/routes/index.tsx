@@ -75,7 +75,7 @@ function Index() {
       </section>
 
       {/* MISSION STRIP */}
-      <section className="border-y border-border bg-surface">
+      <section className="border-y border-border bg-[#F7F8FA]">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-display text-2xl md:text-3xl font-bold tracking-tight italic">
             "We lived it. <span className="text-brand">Now we talk it.</span>"
@@ -94,7 +94,7 @@ function Index() {
       <ContentRail eyebrow="New This Week" title="Fresh Drops" episodes={episodes.slice().reverse()} size="md" />
 
       {/* HOST SPOTLIGHT */}
-      <section className="py-20 lg:py-28 bg-surface border-y border-border">
+      <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -228,7 +228,7 @@ function Index() {
       </section>
 
       {/* COMMUNITY + EVENTS */}
-      <section className="py-20 bg-surface border-y border-border">
+      <section className="py-20 bg-[#F7F8FA] border-y border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-6">
           {[
             { icon: Users, eyebrow: "Community", title: "Private Discord", body: "10k+ members trading game, sharing wins, holding each other accountable.", cta: "Join Community", to: "/community" as const },

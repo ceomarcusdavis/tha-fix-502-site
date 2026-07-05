@@ -31,7 +31,7 @@ function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="py-20 bg-surface border-y border-border">
+      <section className="py-20 bg-[#F7F8FA] border-y border-border">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-10">
           {[
             ["Authentic", "Lived experience, not talking points."],

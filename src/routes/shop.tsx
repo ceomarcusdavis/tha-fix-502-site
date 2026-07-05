@@ -40,7 +40,7 @@ function ShopPage() {
           ))}
         </div>
       </section>
-      <section className="py-12 border-t border-border bg-surface">
+      <section className="py-12 border-t border-border bg-[#F7F8FA]">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid sm:grid-cols-3 gap-8 text-center">
           <div><div className="font-display text-2xl font-bold mb-1">Members Save 15%</div><p className="text-xs text-muted-foreground uppercase tracking-widest">Auto-applied at checkout</p></div>
           <div><div className="font-display text-2xl font-bold mb-1">Free Shipping $75+</div><p className="text-xs text-muted-foreground uppercase tracking-widest">Continental US</p></div>
