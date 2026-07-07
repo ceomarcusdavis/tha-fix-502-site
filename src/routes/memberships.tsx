@@ -85,7 +85,7 @@ function MembershipsPage() {
                   ["Voting power on topics", false, true, true],
                   ["Merch discount", false, "10%", "15%"],
                   ["Monthly live webinar / networking", false, true, true],
-                  ["Private community (Discord / app)", false, true, true],
+                  ["Private community access", false, true, true],
                   ["Lifetime access to all content", false, false, true],
                   ["Free exclusive Tha Fix T-shirt", false, false, true],
                   ["Listed as Founding Member on site", false, false, true],
