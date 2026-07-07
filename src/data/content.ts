@@ -192,7 +192,7 @@ export const memberships = [
       "Voting power on episode topics",
       "10% off all merch purchases",
       "Monthly live webinar / networking session",
-      "Private community access (Discord / Tha Fix app)",
+      "Private community access",
     ],
     cta: "Become an Insider",
     featured: true,
