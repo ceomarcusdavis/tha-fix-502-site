@@ -25,7 +25,7 @@ function AboutPage() {
           </div>
           <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
             <p>Tha Fix brings together two men with decades of lived experience and unfiltered perspective.</p>
-            <p>Hosted by <strong>Jon Mike</strong> and <strong>Marcus Davis</strong>, two brothers who met behind bars and rebuilt their lives outside the walls — now breaking down sports, politics, violence, community, and the culture that shapes us all.</p>
+            <p>Hosted by <strong>Jon Mic</strong> and <strong>Marcus Davis</strong>, two brothers who met behind bars and rebuilt their lives outside the walls — now breaking down sports, politics, violence, community, and the culture that shapes us all.</p>
             <p>From prison to purpose, every conversation is raw, real, and relevant. No fluff. No fake. Just the fix you've been missing.</p>
             <p className="font-display text-3xl font-bold text-brand italic">"We lived it. Now we talk it."</p>
           </div>
