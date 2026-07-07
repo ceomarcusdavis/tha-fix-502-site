@@ -76,19 +76,38 @@ function MembershipsPage() {
               </thead>
               <tbody>
                 {[
-                  ["Ad-free episodes", true, true, true],
-                  ["Early access (48 hrs)", false, true, true],
-                  ["Extended interviews", false, true, true],
-                  ["Live Q&A sessions", false, true, true],
-                  ["Behind-the-scenes", false, false, true],
-                  ["Annual signed merch", false, false, true],
-                  ["VIP event access", false, false, true],
+                  ["Early access to new episodes", true, true, true],
+                  ["Members-only bonus clips", true, true, true],
+                  ["Community feed access", true, true, true],
+                  ["Submit questions & topics", true, true, true],
+                  ["Tha Fix After Hours (unfiltered)", false, true, true],
+                  ["Behind-the-scenes + raw discussions", false, true, true],
+                  ["Voting power on topics", false, true, true],
+                  ["Merch discount", false, "10%", "15%"],
+                  ["Monthly live webinar / networking", false, true, true],
+                  ["Private community (Discord / app)", false, true, true],
+                  ["Lifetime access to all content", false, false, true],
+                  ["Free exclusive Tha Fix T-shirt", false, false, true],
+                  ["Listed as Founding Member on site", false, false, true],
+                  ["Quarterly private strategy session", false, false, true],
+                  ["Members-only documentary content", false, false, true],
+                  ["Priority collab & guest placement", false, false, true],
+                  ["Featured brand spotlight", false, false, true],
+                  ["Early access to events & platform features", false, false, true],
+                  ["Opportunity drops", false, false, true],
+                  ["Priority Q&A (guaranteed response)", false, false, true],
                 ].map(([label, ...vals]) => (
                   <tr key={label as string} className="border-b border-border/40">
                     <td className="py-4">{label as string}</td>
                     {vals.map((v, i) => (
                       <td key={i} className="text-center py-4">
-                        {v ? <Check className="w-4 h-4 text-brand inline" /> : <span className="text-muted-foreground">—</span>}
+                        {v === true ? (
+                          <Check className="w-4 h-4 text-brand inline" />
+                        ) : v === false ? (
+                          <span className="text-muted-foreground">—</span>
+                        ) : (
+                          <span className="text-sm font-bold text-brand">{v}</span>
+                        )}
                       </td>
                     ))}
                   </tr>
