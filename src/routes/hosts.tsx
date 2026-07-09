@@ -28,10 +28,11 @@ function HostsPage() {
               <div>
                 <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-3">{h.role}</div>
                 <h2 className="font-display text-5xl md:text-7xl font-black tracking-tighter leading-[0.85] mb-6">{h.name}</h2>
-                <p className="text-lg text-foreground/80 leading-relaxed mb-4">{h.bio}</p>
-                <p className="text-muted-foreground leading-relaxed">
-                  When he isn't behind the mic, he's mentoring, building, and showing up in the community. Every episode reflects that work.
-                </p>
+                {h.bio.split("\n\n").map((paragraph, idx) => (
+                  <p key={idx} className="text-lg text-foreground/80 leading-relaxed mb-4 last:mb-0">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
           ))}
