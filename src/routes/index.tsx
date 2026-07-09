@@ -118,7 +118,9 @@ function Index() {
                   <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand mb-2">{h.role}</div>
                   <h3 className="font-display text-4xl font-black tracking-tighter mb-3">{h.name}</h3>
                   <p className="text-sm text-foreground/70 max-w-md">
-                    {h.bio.split(/(?<=[.!?])\s+/).slice(0, 2).join(" ")}
+                    {h.slug === "marcus-davis"
+                      ? "After rebuilding his life following incarceration, Marcus transformed his journey into one of purpose, leadership, and service. (click image for full bio)"
+                      : h.bio.split(/(?<=[.!?])\s+/).slice(0, 1).join(" ")}
                   </p>
                 </div>
               </Link>
