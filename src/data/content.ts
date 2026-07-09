@@ -194,7 +194,7 @@ export const memberships = [
       "Monthly live webinar / networking session",
       "Private community access",
     ],
-    cta: "Become an Insider",
+    cta: "Join the Network",
     featured: true,
   },
   {
