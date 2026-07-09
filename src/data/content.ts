@@ -181,7 +181,7 @@ export const memberships = [
     featured: false,
   },
   {
-    name: "The Insider",
+    name: "The Network",
     price: 19,
     period: "/mo",
     tagline: "Join the conversation.",
