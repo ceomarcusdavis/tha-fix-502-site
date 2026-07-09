@@ -203,7 +203,7 @@ export const memberships = [
     period: " one-time",
     tagline: "Lifetime. Built different.",
     features: [
-      "Everything in Insider",
+      "Everything in The Network",
       "Lifetime access to all content",
       "Free exclusive Tha Fix T-shirt",
       "Name listed as Founding Member on website",
