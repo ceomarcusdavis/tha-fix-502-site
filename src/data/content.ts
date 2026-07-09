@@ -167,7 +167,7 @@ export const products: Product[] = [
 
 export const memberships = [
   {
-    name: "The Contributor",
+    name: "The Audience",
     price: 7,
     period: "/mo",
     tagline: "Tap in.",
@@ -177,16 +177,16 @@ export const memberships = [
       "Access to members-only discussions (community feed)",
       "Submit questions & topics for episodes",
     ],
-    cta: "Become a Contributor",
+    cta: "Join the Audience",
     featured: false,
   },
   {
-    name: "The Insider",
+    name: "The Network",
     price: 19,
     period: "/mo",
     tagline: "Join the conversation.",
     features: [
-      "Everything in Contributor",
+      "Everything in The Audience",
       "Full access to Tha Fix After Hours (unfiltered)",
       "Behind-the-scenes + raw discussions",
       "Voting power on episode topics",
@@ -194,7 +194,7 @@ export const memberships = [
       "Monthly live webinar / networking session",
       "Private community access",
     ],
-    cta: "Become an Insider",
+    cta: "Join the Network",
     featured: true,
   },
   {
@@ -203,7 +203,7 @@ export const memberships = [
     period: " one-time",
     tagline: "Lifetime. Built different.",
     features: [
-      "Everything in Insider",
+      "Everything in The Network",
       "Lifetime access to all content",
       "Free exclusive Tha Fix T-shirt",
       "Name listed as Founding Member on website",
