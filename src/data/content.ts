@@ -186,7 +186,7 @@ export const memberships = [
     period: "/mo",
     tagline: "Join the conversation.",
     features: [
-      "Everything in Contributor",
+      "Everything in The Audience",
       "Full access to Tha Fix After Hours (unfiltered)",
       "Behind-the-scenes + raw discussions",
       "Voting power on episode topics",
