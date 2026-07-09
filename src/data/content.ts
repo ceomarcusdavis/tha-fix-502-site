@@ -167,7 +167,7 @@ export const products: Product[] = [
 
 export const memberships = [
   {
-    name: "The Contributor",
+    name: "The Audience",
     price: 7,
     period: "/mo",
     tagline: "Tap in.",
