@@ -177,7 +177,7 @@ export const memberships = [
       "Access to members-only discussions (community feed)",
       "Submit questions & topics for episodes",
     ],
-    cta: "Become a Contributor",
+    cta: "Join the Audience",
     featured: false,
   },
   {
