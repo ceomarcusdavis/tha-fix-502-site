@@ -125,7 +125,7 @@ export const hosts: Host[] = [
     name: "Jon Mic",
     role: "Co-Host & Founder",
     image: hostA,
-    bio: "Author, organizer, and community advocate. Two decades on the ground in his city, Jon Mic brings lived experience to every conversation.",
+    bio: "Jon Mic is a co-host and Founder of Tha Fix whose authenticity, resilience, and real-life perspective make him a powerful voice on the show. A Louisville native and Ballard High School graduate, Jon is known for being genuine, loyal, and unapologetically straightforward.\n\nAfter overcoming more than 20 years of incarceration, he has spent the last eight years rebuilding his life with purpose, earning a leadership role as a Lead Safety Ambassador while remaining devoted to his family.\n\nJon is the proud father of two sons, grandfather of six, and fiancé to Breeda Dillard. On Tha Fix, he brings honest conversations, lived experience, and a passion for uplifting the community through discussions about music, culture, life, and personal growth.",
   },
   {
     slug: "marcus-davis",
