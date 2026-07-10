@@ -4,7 +4,7 @@ import ep3 from "@/assets/ep-3.jpg";
 import ep4 from "@/assets/ep-4.jpg";
 import ep5 from "@/assets/ep-5.jpg";
 import ep6 from "@/assets/ep-6.jpg";
-import hostA from "@/assets/host-1.jpg";
+import jonMicProfile from "@/assets/jon-mic-profile.png.asset.json";
 import hostB from "@/assets/host-2.jpg";
 import guest1 from "@/assets/guest-1.jpg";
 import guest2 from "@/assets/guest-2.jpg";
@@ -124,7 +124,7 @@ export const hosts: Host[] = [
     slug: "jon-mic",
     name: "Jon Mic",
     role: "Co-Host & Founder",
-    image: hostA,
+    image: jonMicProfile.url,
     bio: "Jon Mic is a co-host and Founder of Tha Fix whose authenticity, resilience, and real-life perspective make him a powerful voice on the show. A Louisville native and Ballard High School graduate, Jon is known for being genuine, loyal, and unapologetically straightforward.\n\nAfter overcoming more than 20 years of incarceration, he has spent the last eight years rebuilding his life with purpose, earning a leadership role as a Lead Safety Ambassador while remaining devoted to his family.\n\nJon is the proud father of two sons, grandfather of six, and fiancé to Breeda Dillard. On Tha Fix, he brings honest conversations, lived experience, and a passion for uplifting the community through discussions about music, culture, life, and personal growth.",
   },
   {
