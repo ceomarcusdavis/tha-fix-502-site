@@ -120,7 +120,7 @@ function Index() {
                   <p className="text-sm text-foreground/70 max-w-md">
                     {h.slug === "marcus-davis"
                       ? "After rebuilding his life following incarceration, Marcus transformed his journey into one of purpose, leadership, and service. (click image for full bio)"
-                      : h.bio.split(/(?<=[.!?])\s+/).slice(0, 1).join(" ")}
+                      : "A Louisville native and Ballard High School graduate, Jon is known for being genuine, loyal, and unapologetically straightforward. (click image for full bio)"}
                   </p>
                 </div>
               </Link>
