@@ -170,7 +170,7 @@ export const memberships = [
     name: "The Audience",
     price: 7,
     period: "/mo",
-    tagline: "Tap in.",
+    tagline: "Watch. Listen. Engage.",
     features: [
       "Early access to new episodes (24–48 hrs before public)",
       "Members-only bonus clips",
@@ -184,7 +184,7 @@ export const memberships = [
     name: "The Network",
     price: 19,
     period: "/mo",
-    tagline: "Join the conversation.",
+    tagline: "Connect. Collaborate. Participate.",
     features: [
       "Everything in The Audience",
       "Full access to Tha Fix After Hours (unfiltered)",
@@ -201,7 +201,7 @@ export const memberships = [
     name: "The Founder",
     price: 297,
     period: " one-time",
-    tagline: "Lifetime. Built different.",
+    tagline: "Influence. Access. Priority.",
     features: [
       "Everything in The Network",
       "Lifetime access to all content",
