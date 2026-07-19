@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Youtube, Twitter, Facebook } from "lucide-react";
+import { Instagram, Youtube, Facebook } from "lucide-react";
 
 const cols = [
   {
@@ -43,16 +43,33 @@ export function SiteFooter() {
               culture, community, entrepreneurship, and transformation.
             </p>
             <div className="flex gap-3">
-              {[Instagram, Youtube, Twitter, Facebook].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="size-9 rounded-sm border border-white/20 grid place-items-center text-white/60 hover:text-accent hover:border-accent transition-colors"
-                  aria-label="Social link"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
+              <a
+                href="https://www.instagram.com/thafix502/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-9 rounded-sm border border-white/20 grid place-items-center text-white/60 hover:text-accent hover:border-accent transition-colors"
+                aria-label="Tha Fix on Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.youtube.com/@ThaFix502"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-9 rounded-sm border border-white/20 grid place-items-center text-white/60 hover:text-accent hover:border-accent transition-colors"
+                aria-label="Tha Fix on YouTube"
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61583653498765"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-9 rounded-sm border border-white/20 grid place-items-center text-white/60 hover:text-accent hover:border-accent transition-colors"
+                aria-label="Tha Fix on Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
             </div>
           </div>
           {cols.map((c) => (
