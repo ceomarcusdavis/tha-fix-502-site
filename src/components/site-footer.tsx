@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Youtube, Twitter, Facebook } from "lucide-react";
-import logoAsset from "@/assets/thafix-logo.png.asset.json";
 
 const cols = [
   {
@@ -38,7 +37,7 @@ export function SiteFooter() {
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-16">
         <div className="grid lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-2 max-w-sm">
-            <img src={logoAsset.url} alt="Tha Fix" className="h-28 w-auto mb-5" />
+            <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix" className="h-28 w-auto mb-5" />
             <p className="text-sm text-white/60 leading-relaxed mb-6">
               We lived it. Now we talk it. A media network for real conversations on
               culture, community, entrepreneurship, and transformation.
