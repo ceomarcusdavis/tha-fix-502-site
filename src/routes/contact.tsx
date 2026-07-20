@@ -22,9 +22,9 @@ function ContactPage() {
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.3fr] gap-12">
           <div className="space-y-6">
             {[
-              { icon: Mail, label: "General", value: "hello@thafix.media" },
-              { icon: Megaphone, label: "Press", value: "press@thafix.media" },
-              { icon: Handshake, label: "Partnerships", value: "partners@thafix.media" },
+              { icon: Mail, label: "General", value: "info@thafix502.com" },
+              { icon: Megaphone, label: "Press", value: "marcus@thafix502.com" },
+              { icon: Handshake, label: "Partnerships", value: "info@thafix502.com" },
             ].map((c) => (
               <div key={c.label} className="p-6 bg-surface border border-border">
                 <c.icon className="w-6 h-6 text-brand mb-3" />
