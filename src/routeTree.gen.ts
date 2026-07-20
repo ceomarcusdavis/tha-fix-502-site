@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MembershipsRouteImport } from './routes/memberships'
+import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventsRouteImport } from './routes/events'
@@ -55,6 +56,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const MembershipsRoute = MembershipsRouteImport.update({
   id: '/memberships',
   path: '/memberships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipTermsRoute = MembershipTermsRouteImport.update({
+  id: '/membership-terms',
+  path: '/membership-terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HostsRoute = HostsRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
+  '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/hosts'
+    | '/membership-terms'
     | '/memberships'
     | '/privacy'
     | '/shop'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/hosts'
+    | '/membership-terms'
     | '/memberships'
     | '/privacy'
     | '/shop'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/hosts'
+    | '/membership-terms'
     | '/memberships'
     | '/privacy'
     | '/shop'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   HostsRoute: typeof HostsRoute
+  MembershipTermsRoute: typeof MembershipTermsRoute
   MembershipsRoute: typeof MembershipsRoute
   PrivacyRoute: typeof PrivacyRoute
   ShopRoute: typeof ShopRoute
@@ -293,6 +306,13 @@ declare module '@tanstack/react-router' {
       path: '/memberships'
       fullPath: '/memberships'
       preLoaderRoute: typeof MembershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership-terms': {
+      id: '/membership-terms'
+      path: '/membership-terms'
+      fullPath: '/membership-terms'
+      preLoaderRoute: typeof MembershipTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hosts': {
@@ -385,6 +405,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   HostsRoute: HostsRoute,
+  MembershipTermsRoute: MembershipTermsRoute,
   MembershipsRoute: MembershipsRoute,
   PrivacyRoute: PrivacyRoute,
   ShopRoute: ShopRoute,
