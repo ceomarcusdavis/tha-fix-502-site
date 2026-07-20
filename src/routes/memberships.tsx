@@ -80,6 +80,7 @@ function MembershipsPage() {
                   ["Members-only bonus clips", true, true, true],
                   ["Community feed access", true, true, true],
                   ["Submit questions & topics", true, true, true],
+                  ["Ability to comment on blog posts", true, true, true],
                   ["Tha Fix After Hours (unfiltered)", false, true, true],
                   ["Behind-the-scenes + raw discussions", false, true, true],
                   ["Voting power on topics", false, true, true],

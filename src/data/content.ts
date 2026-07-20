@@ -175,6 +175,7 @@ export const memberships = [
       "Members-only bonus clips",
       "Access to members-only discussions (community feed)",
       "Submit questions & topics for episodes",
+      "Ability to comment on blog posts",
     ],
     cta: "Join the Audience",
     featured: false,
