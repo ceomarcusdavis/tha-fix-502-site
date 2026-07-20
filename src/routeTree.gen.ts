@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MembershipsRouteImport } from './routes/memberships'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuestsRouteImport } from './routes/guests'
@@ -44,6 +45,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembershipsRoute = MembershipsRouteImport.update({
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
   '/memberships': typeof MembershipsRoute
+  '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
   '/memberships': typeof MembershipsRoute
+  '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/guests': typeof GuestsRoute
   '/hosts': typeof HostsRoute
   '/memberships': typeof MembershipsRoute
+  '/privacy': typeof PrivacyRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/guests'
     | '/hosts'
     | '/memberships'
+    | '/privacy'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/guests'
     | '/hosts'
     | '/memberships'
+    | '/privacy'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/guests'
     | '/hosts'
     | '/memberships'
+    | '/privacy'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -230,6 +242,7 @@ export interface RootRouteChildren {
   GuestsRoute: typeof GuestsRoute
   HostsRoute: typeof HostsRoute
   MembershipsRoute: typeof MembershipsRoute
+  PrivacyRoute: typeof PrivacyRoute
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/memberships': {
@@ -366,6 +386,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuestsRoute: GuestsRoute,
   HostsRoute: HostsRoute,
   MembershipsRoute: MembershipsRoute,
+  PrivacyRoute: PrivacyRoute,
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
