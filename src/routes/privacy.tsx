@@ -33,8 +33,11 @@ function PrivacyPage() {
       <PageHero eyebrow="Legal" title="Privacy Policy" />
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-6 space-y-4 text-foreground/80 leading-relaxed">
-          <P>Effective Date: July 19, 2026</P>
-          <P>Last Updated: July 19, 2026</P>
+          <p className="font-bold leading-tight">
+            Effective Date: July 19, 2026
+            <br />
+            Last Updated: July 19, 2026
+          </p>
 
           <P>
             Back To Marketing LLC operates Tha Fix and the website located at <strong>thafix502.com</strong>. In this Privacy Policy, “Tha Fix,” “we,” “us,” and “our” refer to Back To Marketing LLC in its operation of Tha Fix.
