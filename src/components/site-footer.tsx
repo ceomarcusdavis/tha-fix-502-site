@@ -96,7 +96,7 @@ export function SiteFooter() {
           <span>© {new Date().getFullYear()} Tha Fix Media Network. All rights reserved.</span>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-white">Terms & Conditions</Link>
+            <Link to="/terms" className="hover:text-white">Terms of Use</Link>
           </div>
         </div>
       </div>
