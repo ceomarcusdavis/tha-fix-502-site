@@ -192,6 +192,7 @@ export const memberships = [
       "10% off all merch purchases",
       "Monthly live webinar / networking session",
       "Private community access",
+      "Ability to create & publish blog posts",
     ],
     cta: "Join the Network",
     featured: true,
