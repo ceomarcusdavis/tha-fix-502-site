@@ -11,7 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const paths = [
           "/", "/watch", "/hosts", "/guests", "/memberships", "/community",
           "/events", "/blog", "/shop", "/sponsors", "/about", "/contact",
-          "/donate", "/privacy", "/terms", "/membership-terms",
+          "/donate", "/privacy", "/terms", "/membership-terms", "/guidelines",
           ...episodes.map((e) => `/watch/${e.slug}`),
         ];
         const urls = paths.map((p) => `  <url><loc>${BASE_URL}${p}</loc></url>`).join("\n");

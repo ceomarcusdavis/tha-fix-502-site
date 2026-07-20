@@ -98,6 +98,7 @@ export function SiteFooter() {
             <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-white">Terms of Use</Link>
             <Link to="/membership-terms" className="hover:text-white">Membership Terms</Link>
+            <Link to="/guidelines" className="hover:text-white">Guidelines</Link>
           </div>
         </div>
       </div>
