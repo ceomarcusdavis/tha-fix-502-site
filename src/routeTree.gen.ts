@@ -17,6 +17,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MembershipsRouteImport } from './routes/memberships'
 import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as HostsRouteImport } from './routes/hosts'
+import { Route as GuidelinesRouteImport } from './routes/guidelines'
 import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as DonateRouteImport } from './routes/donate'
@@ -66,6 +67,11 @@ const MembershipTermsRoute = MembershipTermsRouteImport.update({
 const HostsRoute = HostsRouteImport.update({
   id: '/hosts',
   path: '/hosts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidelinesRoute = GuidelinesRouteImport.update({
+  id: '/guidelines',
+  path: '/guidelines',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuestsRoute = GuestsRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
+  '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
+  '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
+  '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/events'
     | '/guests'
+    | '/guidelines'
     | '/hosts'
     | '/membership-terms'
     | '/memberships'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/events'
     | '/guests'
+    | '/guidelines'
     | '/hosts'
     | '/membership-terms'
     | '/memberships'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/events'
     | '/guests'
+    | '/guidelines'
     | '/hosts'
     | '/membership-terms'
     | '/memberships'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   DonateRoute: typeof DonateRoute
   EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
+  GuidelinesRoute: typeof GuidelinesRoute
   HostsRoute: typeof HostsRoute
   MembershipTermsRoute: typeof MembershipTermsRoute
   MembershipsRoute: typeof MembershipsRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/hosts'
       fullPath: '/hosts'
       preLoaderRoute: typeof HostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guidelines': {
+      id: '/guidelines'
+      path: '/guidelines'
+      fullPath: '/guidelines'
+      preLoaderRoute: typeof GuidelinesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guests': {
@@ -404,6 +424,7 @@ const rootRouteChildren: RootRouteChildren = {
   DonateRoute: DonateRoute,
   EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
+  GuidelinesRoute: GuidelinesRoute,
   HostsRoute: HostsRoute,
   MembershipTermsRoute: MembershipTermsRoute,
   MembershipsRoute: MembershipsRoute,
@@ -418,13 +439,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
