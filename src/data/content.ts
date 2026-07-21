@@ -4,7 +4,6 @@ import ep3 from "@/assets/ep-3.jpg";
 import ep4 from "@/assets/ep-4.jpg";
 import ep5 from "@/assets/ep-5.jpg";
 import ep6 from "@/assets/ep-6.jpg";
-import hostB from "@/assets/host-2.jpg";
 import guest1 from "@/assets/guest-1.jpg";
 import guest2 from "@/assets/guest-2.jpg";
 import guest3 from "@/assets/guest-3.jpg";
