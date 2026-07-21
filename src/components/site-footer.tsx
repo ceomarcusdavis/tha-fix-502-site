@@ -94,12 +94,13 @@ export function SiteFooter() {
         </div>
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-white/60">
           <span>© {new Date().getFullYear()} Tha Fix Media Network. All rights reserved.</span>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
             <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-white">Terms of Use</Link>
             <Link to="/membership-terms" className="hover:text-white">Membership Terms</Link>
             <Link to="/guidelines" className="hover:text-white">Guidelines</Link>
             <Link to="/shipping-returns" className="hover:text-white">Shipping & Returns</Link>
+            <Link to="/support-terms" className="hover:text-white">Support Terms</Link>
           </div>
         </div>
       </div>

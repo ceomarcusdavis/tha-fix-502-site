@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SupportTermsRouteImport } from './routes/support-terms'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
@@ -33,6 +34,11 @@ import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportTermsRoute = SupportTermsRouteImport.update({
+  id: '/support-terms',
+  path: '/support-terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SponsorsRoute = SponsorsRouteImport.update({
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch': typeof WatchIndexRoute
@@ -194,6 +202,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/watch/': typeof WatchIndexRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support-terms'
     | '/terms'
     | '/watch/$slug'
     | '/watch/'
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support-terms'
     | '/terms'
     | '/watch/$slug'
     | '/watch'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support-terms'
     | '/terms'
     | '/watch/$slug'
     | '/watch/'
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
+  SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   WatchSlugRoute: typeof WatchSlugRoute
   WatchIndexRoute: typeof WatchIndexRoute
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support-terms': {
+      id: '/support-terms'
+      path: '/support-terms'
+      fullPath: '/support-terms'
+      preLoaderRoute: typeof SupportTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sponsors': {
@@ -453,6 +473,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
+  SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   WatchSlugRoute: WatchSlugRoute,
   WatchIndexRoute: WatchIndexRoute,
@@ -460,3 +481,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
