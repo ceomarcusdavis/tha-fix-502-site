@@ -32,7 +32,7 @@ export function SiteNav() {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
+          <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto brightness-0 invert" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-white/80">
