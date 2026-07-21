@@ -12,7 +12,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/", "/watch", "/hosts", "/guests", "/memberships", "/community",
           "/events", "/blog", "/shop", "/sponsors", "/about", "/contact",
           "/donate", "/privacy", "/terms", "/membership-terms", "/guidelines",
-          "/shipping-returns",
+          "/shipping-returns", "/support-terms",
           ...episodes.map((e) => `/watch/${e.slug}`),
         ];
         const urls = paths.map((p) => `  <url><loc>${BASE_URL}${p}</loc></url>`).join("\n");
