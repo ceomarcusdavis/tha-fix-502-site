@@ -72,14 +72,14 @@ export function SiteNav() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-white">
+        <div className="lg:hidden border-t border-white/10 bg-[#1A1A1A]">
           <nav className="flex flex-col px-6 py-4 gap-1">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm font-medium uppercase tracking-wider text-foreground/80 hover:text-brand border-b border-border/40"
+                className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927] border-b border-white/10"
               >
                 {l.label}
               </Link>
@@ -87,7 +87,7 @@ export function SiteNav() {
             <Link
               to="/donate"
               onClick={() => setOpen(false)}
-              className="py-3 text-sm font-medium uppercase tracking-wider text-foreground/80"
+              className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
             >
               Donate
             </Link>
