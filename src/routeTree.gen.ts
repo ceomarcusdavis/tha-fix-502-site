@@ -29,6 +29,7 @@ import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchIndexRouteImport } from './routes/watch.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 
 const TermsRoute = TermsRouteImport.update({
@@ -131,6 +132,11 @@ const WatchIndexRoute = WatchIndexRouteImport.update({
   path: '/watch/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WatchSlugRoute = WatchSlugRouteImport.update({
   id: '/watch/$slug',
   path: '/watch/$slug',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRoutesByTo {
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/watch': typeof WatchIndexRoute
 }
 export interface FileRoutesById {
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRouteTypes {
@@ -230,6 +239,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/watch/$slug'
+    | '/blog/'
     | '/watch/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/watch/$slug'
+    | '/blog'
     | '/watch'
   id:
     | '__root__'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/watch/$slug'
+    | '/blog/'
     | '/watch/'
   fileRoutesById: FileRoutesById
 }
@@ -300,6 +312,7 @@ export interface RootRouteChildren {
   SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   WatchSlugRoute: typeof WatchSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   WatchIndexRoute: typeof WatchIndexRoute
 }
 
@@ -445,6 +458,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/watch/$slug': {
       id: '/watch/$slug'
       path: '/watch/$slug'
@@ -476,6 +496,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   WatchSlugRoute: WatchSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   WatchIndexRoute: WatchIndexRoute,
 }
 export const routeTree = rootRouteImport
