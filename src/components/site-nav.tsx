@@ -35,12 +35,12 @@ export function SiteNav() {
           <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-[#2B2B2B]">
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-white/80">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="hover:text-brand transition-colors data-[status=active]:text-brand data-[status=active]:underline data-[status=active]:decoration-accent data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
+              className="hover:text-[#FDB927] transition-colors data-[status=active]:text-[#FDB927] data-[status=active]:underline data-[status=active]:decoration-[#FDB927] data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
             >
               {l.label}
             </Link>
