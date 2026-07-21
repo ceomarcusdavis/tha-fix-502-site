@@ -129,7 +129,7 @@ export const hosts: Host[] = [
     slug: "marcus-davis",
     name: "Marcus Davis",
     role: "Co-Host, Founder & Producer",
-    image: hostB,
+    image: "/images/marcus-davis-profile.png",
     bio: "Marcus Davis is the Co-Host, Founder, and Producer of Tha Fix, a platform built on real conversations, lived experience, and honest perspectives. After rebuilding his life following incarceration, Marcus transformed his journey into one of purpose, leadership, and service. Today, he is an accomplished communications professional, digital marketer, and community advocate dedicated to creating opportunities for young people and strengthening communities.\n\nDrawing from both personal experience and professional expertise, Marcus brings authenticity, insight, and accountability to every conversation. Whether discussing sports, politics, violence, culture, or the challenges facing today's communities, he speaks from a place few can—having lived the struggles and worked to create solutions.\n\nThrough Tha Fix, Marcus and his co-host challenge assumptions, spark meaningful dialogue, and prove that your past doesn't have to define your future.",
   },
 ];
