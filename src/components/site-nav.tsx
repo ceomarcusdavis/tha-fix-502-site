@@ -26,23 +26,21 @@ export function SiteNav() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white backdrop-blur-md border-b border-border"
-          : "bg-gradient-to-b from-white to-transparent"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[#1A1A1A] border-b border-white/10 ${
+        scrolled ? "shadow-lg" : ""
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
+          <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto brightness-0 invert" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-[#2B2B2B]">
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-white/80">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="hover:text-brand transition-colors data-[status=active]:text-brand data-[status=active]:underline data-[status=active]:decoration-accent data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
+              className="hover:text-[#FDB927] transition-colors data-[status=active]:text-[#FDB927] data-[status=active]:underline data-[status=active]:decoration-[#FDB927] data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
             >
               {l.label}
             </Link>
@@ -52,20 +50,20 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <Link
             to="/donate"
-            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-[#2B2B2B] hover:text-brand transition-colors"
+            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
           >
             Donate
           </Link>
           <Link
             to="/memberships"
-            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#FDB927] text-white px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#E5A623] transition-colors"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Join
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-foreground"
+            className="lg:hidden text-white"
             aria-label="Toggle menu"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -74,14 +72,14 @@ export function SiteNav() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-white">
+        <div className="lg:hidden border-t border-white/10 bg-[#1A1A1A]">
           <nav className="flex flex-col px-6 py-4 gap-1">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm font-medium uppercase tracking-wider text-foreground/80 hover:text-brand border-b border-border/40"
+                className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927] border-b border-white/10"
               >
                 {l.label}
               </Link>
@@ -89,7 +87,7 @@ export function SiteNav() {
             <Link
               to="/donate"
               onClick={() => setOpen(false)}
-              className="py-3 text-sm font-medium uppercase tracking-wider text-foreground/80"
+              className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
             >
               Donate
             </Link>
