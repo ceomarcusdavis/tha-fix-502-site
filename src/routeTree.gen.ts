@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ShippingReturnsRouteImport } from './routes/shipping-returns'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MembershipsRouteImport } from './routes/memberships'
 import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
@@ -47,6 +48,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShippingReturnsRoute = ShippingReturnsRouteImport.update({
+  id: '/shipping-returns',
+  path: '/shipping-returns',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/membership-terms': typeof MembershipTermsRoute
   '/memberships': typeof MembershipsRoute
   '/privacy': typeof PrivacyRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/membership-terms'
     | '/memberships'
     | '/privacy'
+    | '/shipping-returns'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/membership-terms'
     | '/memberships'
     | '/privacy'
+    | '/shipping-returns'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/membership-terms'
     | '/memberships'
     | '/privacy'
+    | '/shipping-returns'
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
@@ -269,6 +281,7 @@ export interface RootRouteChildren {
   MembershipTermsRoute: typeof MembershipTermsRoute
   MembershipsRoute: typeof MembershipsRoute
   PrivacyRoute: typeof PrivacyRoute
+  ShippingReturnsRoute: typeof ShippingReturnsRoute
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping-returns': {
+      id: '/shipping-returns'
+      path: '/shipping-returns'
+      fullPath: '/shipping-returns'
+      preLoaderRoute: typeof ShippingReturnsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -429,6 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   MembershipTermsRoute: MembershipTermsRoute,
   MembershipsRoute: MembershipsRoute,
   PrivacyRoute: PrivacyRoute,
+  ShippingReturnsRoute: ShippingReturnsRoute,
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
@@ -439,13 +460,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

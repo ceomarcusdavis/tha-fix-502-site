@@ -99,6 +99,7 @@ export function SiteFooter() {
             <Link to="/terms" className="hover:text-white">Terms of Use</Link>
             <Link to="/membership-terms" className="hover:text-white">Membership Terms</Link>
             <Link to="/guidelines" className="hover:text-white">Guidelines</Link>
+            <Link to="/shipping-returns" className="hover:text-white">Shipping & Returns</Link>
           </div>
         </div>
       </div>
