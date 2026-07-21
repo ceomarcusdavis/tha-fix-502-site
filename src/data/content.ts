@@ -224,3 +224,141 @@ export const memberships = [
 export const sponsors = [
   "ORIGIN CAPITAL", "BLOCKWORK", "THE 8TH FLOOR", "LEGACY FM", "NORTHSTAR APPAREL", "RUNTABLE", "GROUNDED CO.", "META MUTUAL",
 ];
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  author: string;
+  category: string;
+  read: string;
+  views: string;
+  publishedAt: string;
+  image: string;
+  excerpt: string;
+  body: string[];
+};
+
+export const blogPosts: BlogPost[] = [
+  {
+    slug: "community-conversation-outlasts-news-cycle",
+    title: "Why community conversation outlasts the news cycle",
+    author: "Jon Mic",
+    category: "Community",
+    read: "6 min",
+    views: "48K",
+    publishedAt: "May 30, 2026",
+    image: ep1,
+    excerpt: "Hot takes fade in a week. The conversations that matter happen at the kitchen table.",
+    body: [
+      "The news cycle moves fast. By Friday, nobody remembers what Monday's outrage was about. But the conversations that actually shape a neighborhood happen slower — at cookouts, at barbershops, at the kitchen table.",
+      "On Tha Fix, we've learned that the loudest voices online aren't the ones people actually listen to. Trust is built face to face, over years, by showing up when it counts.",
+      "This post breaks down three habits that keep community dialogue alive long after the headlines move on: showing up in person, telling the truth about your own story, and making room for the next voice at the table.",
+    ],
+  },
+  {
+    slug: "five-episodes-changed-how-we-see-leadership",
+    title: "Five episodes that changed how we see leadership",
+    author: "Marcus Davis",
+    category: "Culture",
+    read: "8 min",
+    views: "62K",
+    publishedAt: "May 22, 2026",
+    image: ep2,
+    excerpt: "A retrospective on the moments that reframed what real leadership looks like.",
+    body: [
+      "Four seasons in, a handful of conversations still sit differently with us. These aren't the biggest names or the loudest episodes — they're the ones that quietly changed how we think about leading anything.",
+      "From a pastor who runs toward the hard rooms to an athlete who had to redefine himself after the whistle blew, each guest showed us a version of leadership that doesn't fit on a LinkedIn bio.",
+      "Here are the five episodes we go back to — and what each one taught us about doing the work when nobody is watching.",
+    ],
+  },
+  {
+    slug: "notes-from-the-road-atlanta-kickoff",
+    title: "Notes from the road: Atlanta kickoff",
+    author: "Jon Mic",
+    category: "Culture",
+    read: "5 min",
+    views: "31K",
+    publishedAt: "May 15, 2026",
+    image: ep3,
+    excerpt: "The first night of the summer tour, in the hosts' own words.",
+    body: [
+      "Atlanta showed up. Doors opened at seven, and by six-thirty the line stretched around the block. We knew this tour was going to be different, but we didn't expect the room to feel like a family reunion.",
+      "This is the raw, unedited recap of night one — what worked, what didn't, and the moments we'll be replaying for weeks.",
+    ],
+  },
+  {
+    slug: "money-mission-and-the-second-act",
+    title: "Money, mission, and the second act",
+    author: "Marcus Davis",
+    category: "Business",
+    read: "7 min",
+    views: "54K",
+    publishedAt: "May 8, 2026",
+    image: ep5,
+    excerpt: "Rebuilding a financial life is one thing. Rebuilding a mission is another.",
+    body: [
+      "Coming home is only half the work. The other half is figuring out how to make a living that matches the person you've become — not the person you used to be.",
+      "In this piece, we get honest about the money mistakes, the credit rebuild, and the slow shift from chasing a check to chasing a calling.",
+    ],
+  },
+  {
+    slug: "faith-fatherhood-and-the-work-in-between",
+    title: "Faith, fatherhood, and the work in between",
+    author: "Jon Mic",
+    category: "Faith",
+    read: "6 min",
+    views: "39K",
+    publishedAt: "Apr 29, 2026",
+    image: ep3,
+    excerpt: "Being a father is the loudest sermon you'll ever preach.",
+    body: [
+      "My kids don't need me to be perfect. They need me to be present, honest, and consistent. That's the whole thing.",
+      "This is a letter to every man trying to be a better father than the one he had — and the small daily choices that make it possible.",
+    ],
+  },
+  {
+    slug: "the-real-cost-of-showing-up",
+    title: "The real cost of showing up",
+    author: "Marcus Davis",
+    category: "Politics",
+    read: "9 min",
+    views: "72K",
+    publishedAt: "Apr 21, 2026",
+    image: ep6,
+    excerpt: "Advocacy isn't a hashtag. It's the receipts of everywhere you showed up when it was inconvenient.",
+    body: [
+      "You can't tweet your way into a community's trust. You show up to the school board meeting. You show up to the funeral. You show up when the cameras aren't there.",
+      "This piece is a breakdown of what real, sustained civic work looks like — and why the flash-in-the-pan advocates get burnt out first.",
+    ],
+  },
+  {
+    slug: "athletes-second-half",
+    title: "The athlete's second half",
+    author: "Jon Mic",
+    category: "Sports",
+    read: "5 min",
+    views: "45K",
+    publishedAt: "Apr 14, 2026",
+    image: ep2,
+    excerpt: "The scoreboard turns off. Then what?",
+    body: [
+      "Most players don't retire — they get retired. The gap between the last game and the next chapter is where identity either breaks or rebuilds.",
+      "We talked to former pros about what actually helped them cross that gap, and what they wish someone had told them at twenty-two.",
+    ],
+  },
+  {
+    slug: "the-block-and-the-boardroom",
+    title: "The block and the boardroom speak the same language",
+    author: "Marcus Davis",
+    category: "Business",
+    read: "6 min",
+    views: "58K",
+    publishedAt: "Apr 7, 2026",
+    image: ep4,
+    excerpt: "Negotiation, loyalty, timing — the fundamentals don't change with the zip code.",
+    body: [
+      "The skills that keep you alive on the block are the same ones that close deals in a boardroom. Reading the room. Knowing when to speak. Knowing when not to.",
+      "This is a piece about pattern recognition — and why the guys who make it out often make it further than the ones who never had to fight for anything.",
+    ],
+  },
+];
