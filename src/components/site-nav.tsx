@@ -50,20 +50,20 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <Link
             to="/donate"
-            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-[#2B2B2B] hover:text-brand transition-colors"
+            className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
           >
             Donate
           </Link>
           <Link
             to="/memberships"
-            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#FDB927] text-white px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#E5A623] transition-colors"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Join
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-foreground"
+            className="lg:hidden text-white"
             aria-label="Toggle menu"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
