@@ -26,10 +26,8 @@ export function SiteNav() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white backdrop-blur-md border-b border-border"
-          : "bg-gradient-to-b from-white to-transparent"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[#1A1A1A] border-b border-white/10 ${
+        scrolled ? "shadow-lg" : ""
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
