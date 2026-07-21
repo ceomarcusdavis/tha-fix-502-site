@@ -69,7 +69,7 @@ function PostPage() {
               <span>{post.views} Reads</span>
             </div>
             <p className="text-lg leading-relaxed text-foreground/80 mb-8">{post.excerpt}</p>
-            {post.body.map((para, i) => (
+            {post.body.map((para: string, i: number) => (
               <p key={i} className="text-muted-foreground leading-relaxed mb-5">{para}</p>
             ))}
             <div className="flex gap-3 mt-10">
