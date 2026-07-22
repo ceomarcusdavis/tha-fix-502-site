@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportTermsRouteImport } from './routes/support-terms'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
@@ -40,6 +41,11 @@ const TermsRoute = TermsRouteImport.update({
 const SupportTermsRoute = SupportTermsRouteImport.update({
   id: '/support-terms',
   path: '/support-terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SponsorsRoute = SponsorsRouteImport.update({
@@ -160,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -308,6 +320,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
+  SupportRoute: typeof SupportRoute
   SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/support-terms'
       fullPath: '/support-terms'
       preLoaderRoute: typeof SupportTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sponsors': {
@@ -492,6 +512,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
+  SupportRoute: SupportRoute,
   SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
