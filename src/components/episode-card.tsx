@@ -35,9 +35,14 @@ export function EpisodeCard({ ep, size = "md" }: { ep: Episode; size?: "sm" | "m
         </div>
       </div>
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display font-bold text-base leading-tight group-hover:text-accent transition-colors">
-          {ep.title}
-        </h3>
+        <div className="w-full">
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">
+            {ep.releasedAt} · {ep.views} Plays
+          </p>
+          <h3 className="font-display font-bold text-base leading-tight group-hover:text-accent transition-colors">
+            {ep.title}
+          </h3>
+        </div>
       </div>
       <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
         {ep.category} · with {ep.guest}
