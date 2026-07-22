@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import { memberships, products } from "@/data/content";
+
 
 export const Route = createFileRoute("/support")({
   head: () => ({
