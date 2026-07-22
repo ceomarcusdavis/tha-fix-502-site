@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportTermsRouteImport } from './routes/support-terms'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
@@ -22,7 +23,6 @@ import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuidelinesRouteImport } from './routes/guidelines'
 import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventsRouteImport } from './routes/events'
-import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
@@ -41,6 +41,11 @@ const TermsRoute = TermsRouteImport.update({
 const SupportTermsRoute = SupportTermsRouteImport.update({
   id: '/support-terms',
   path: '/support-terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SponsorsRoute = SponsorsRouteImport.update({
@@ -98,11 +103,6 @@ const EventsRoute = EventsRouteImport.update({
   path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DonateRoute = DonateRouteImport.update({
-  id: '/donate',
-  path: '/donate',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -155,7 +155,6 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
@@ -167,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -180,7 +180,6 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
@@ -192,6 +191,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -206,7 +206,6 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
@@ -218,6 +217,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -233,7 +233,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/donate'
     | '/events'
     | '/guests'
     | '/guidelines'
@@ -245,6 +244,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -258,7 +258,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/donate'
     | '/events'
     | '/guests'
     | '/guidelines'
@@ -270,6 +269,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -283,7 +283,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/donate'
     | '/events'
     | '/guests'
     | '/guidelines'
@@ -295,6 +294,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/sponsors'
+    | '/support'
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
@@ -309,7 +309,6 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
-  DonateRoute: typeof DonateRoute
   EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   GuidelinesRoute: typeof GuidelinesRoute
@@ -321,6 +320,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
+  SupportRoute: typeof SupportRoute
   SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -343,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/support-terms'
       fullPath: '/support-terms'
       preLoaderRoute: typeof SupportTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sponsors': {
@@ -422,13 +429,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/donate': {
-      id: '/donate'
-      path: '/donate'
-      fullPath: '/donate'
-      preLoaderRoute: typeof DonateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -501,7 +501,6 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
-  DonateRoute: DonateRoute,
   EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   GuidelinesRoute: GuidelinesRoute,
@@ -513,6 +512,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
+  SupportRoute: SupportRoute,
   SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
@@ -523,13 +523,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

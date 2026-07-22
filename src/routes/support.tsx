@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 
-export const Route = createFileRoute("/donate")({
+export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
       { title: "Donate — Tha Fix" },
