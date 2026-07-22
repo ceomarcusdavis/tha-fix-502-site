@@ -17,7 +17,7 @@ const cols = [
       { to: "/memberships", label: "Memberships" },
       { to: "/community", label: "Community" },
       { to: "/events", label: "Events" },
-      { to: "/donate", label: "Donate" },
+      { to: "/support", label: "Support Tha Fix" },
     ],
   },
   {
