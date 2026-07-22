@@ -6,9 +6,9 @@ export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
       { title: "Support Tha Fix" },
-      { name: "description", content: "Your support helps Tha Fix Media Network continue producing meaningful content." },
+      { name: "description", content: "Help Tha Fix Media Network continue producing meaningful content." },
       { property: "og:title", content: "Support Tha Fix" },
-      { property: "og:description", content: "Your support helps Tha Fix Media Network continue producing meaningful content." },
+      { property: "og:description", content: "Help Tha Fix Media Network continue producing meaningful content." },
     ],
   }),
   component: SupportPage,
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/support")({
 function SupportPage() {
   return (
     <>
-      <PageHero eyebrow="Support" title="Support Independent Media" description="Your support helps Tha Fix Media Network continue producing meaningful content." />
+      <PageHero eyebrow="Support" title="Support Independent Media" description="Help Tha Fix Media Network continue producing meaningful content." />
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-6">
           <p className="text-base text-muted-foreground leading-relaxed mb-8">
