@@ -6,9 +6,9 @@ export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
       { title: "Support Tha Fix" },
-      { name: "description", content: "Your support helps Tha Fix Media Network continue producing meaningful content." },
+      { name: "description", content: "Help Tha Fix Media Network continue producing meaningful content." },
       { property: "og:title", content: "Support Tha Fix" },
-      { property: "og:description", content: "Your support helps Tha Fix Media Network continue producing meaningful content." },
+      { property: "og:description", content: "Help Tha Fix Media Network continue producing meaningful content." },
     ],
   }),
   component: SupportPage,
