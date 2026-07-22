@@ -11,7 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const paths = [
           "/", "/watch", "/hosts", "/guests", "/memberships", "/community",
           "/events", "/blog", "/shop", "/sponsors", "/about", "/contact",
-          "/donate", "/privacy", "/terms", "/membership-terms", "/guidelines",
+          "/support", "/privacy", "/terms", "/membership-terms", "/guidelines",
           "/shipping-returns", "/support-terms", "/accessibility",
           ...episodes.map((e) => `/watch/${e.slug}`),
         ];

@@ -49,10 +49,10 @@ export function SiteNav() {
 
         <div className="flex items-center gap-3">
           <Link
-            to="/donate"
+            to="/support"
             className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
           >
-            Donate
+            Support Tha Fix
           </Link>
           <Link
             to="/memberships"
@@ -85,11 +85,11 @@ export function SiteNav() {
               </Link>
             ))}
             <Link
-              to="/donate"
+              to="/support"
               onClick={() => setOpen(false)}
               className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
             >
-              Donate
+              Support Tha Fix
             </Link>
           </nav>
         </div>
