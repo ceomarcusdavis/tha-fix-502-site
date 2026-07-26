@@ -16,8 +16,8 @@ export const Route = createFileRoute("/memberships")({
 });
 
 const membershipNotes: Record<string, string> = {
-  "The Audience": "*First-wave price: $7 per month for the first 100 qualifying Audience members.\n\nStandard price: $9 per month after the first-wave allocation is filled.",
-  "The Network": "*First-wave price: $19 per month for the first 100 qualifying Network members.\n\nStandard price: $29 per month after the first-wave allocation is filled.",
+  "The Audience": "*First-wave price: $7 per month for the first 100 qualifying Audience members. Standard price: $9 per month after the first-wave allocation is filled.",
+  "The Network": "*First-wave price: $19 per month for the first 100 qualifying Network members. Standard price: $29 per month after the first-wave allocation is filled.",
   "The Founder": "*Availability: Limited to 100 approved and fully paid Founder members.",
 };
 
@@ -53,7 +53,7 @@ function MembershipsPage() {
                       m.featured ? "text-white/90 hover:text-accent" : "text-brand hover:text-accent"
                     }`}
                   >
-                    Membership terms
+                    Membership Terms
                   </Link>
                   <p
                     className={`text-[11px] leading-relaxed opacity-80 whitespace-pre-line ${
