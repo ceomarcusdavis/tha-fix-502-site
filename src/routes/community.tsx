@@ -24,7 +24,7 @@ const features = [
 function CommunityPage() {
   return (
     <>
-      <PageHero eyebrow="Community" title="The family is the point." description="Tha Fix isn't a show you watch. It's a circle you belong to." />
+      <PageHero eyebrow="Community" title="Your Voice Belongs Here." description="Connect with the hosts and members who make Tha Fix more than a show." />
       <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid sm:grid-cols-2 gap-6">
           {features.map((f) => (

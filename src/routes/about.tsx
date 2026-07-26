@@ -19,7 +19,7 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="About" title="Tha Fix Media Network." />
+      <PageHero eyebrow="About" title="We Lived It. Now We Talk It." description="A media network created to inform, challenge, entertain, and connect." />
       <section className="py-16">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-start">
           <div className="aspect-[4/5] overflow-hidden border border-border">

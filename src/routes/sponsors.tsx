@@ -17,7 +17,7 @@ export const Route = createFileRoute("/sponsors")({
 function SponsorsPage() {
   return (
     <>
-      <PageHero eyebrow="Sponsors & Partners" title="Brands that stand with us." description="The partners powering the network — and how your brand can join the conversation." />
+      <PageHero eyebrow="Sponsors & Partners" title="Partner With Tha Fix." description="Connect your brand with our audience and help power conversations that matter." />
       <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
           {sponsors.map((s) => (
