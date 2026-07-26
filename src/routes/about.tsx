@@ -28,7 +28,7 @@ function AboutPage() {
           <img
             src="/images/thafix-logo-horizontal.png"
             alt="Tha Fix"
-            className="w-full h-auto max-w-[50%] mb-8"
+            className="block w-full h-auto max-w-[50%] mx-auto mb-8"
           />
           <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">This Is Tha Fix</h2>
           <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
