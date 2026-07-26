@@ -15,6 +15,12 @@ export const Route = createFileRoute("/memberships")({
   component: MembershipsPage,
 });
 
+const membershipNotes: Record<string, string> = {
+  "The Audience": "*First-wave price: $7 per month for the first 100 qualifying Audience members.\n\nStandard price: $9 per month after the first-wave allocation is filled.",
+  "The Network": "*First-wave price: $19 per month for the first 100 qualifying Network members.\n\nStandard price: $29 per month after the first-wave allocation is filled.",
+  "The Founder": "*Availability: Limited to 100 approved and fully paid Founder members.",
+};
+
 function MembershipsPage() {
   return (
     <>
@@ -35,9 +41,28 @@ function MembershipsPage() {
               )}
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-70 mb-3">{m.tagline}</div>
               <h3 className="font-display text-4xl font-black mb-4">{m.name}</h3>
-              <div className="mb-8">
-                <span className="font-display text-6xl font-black">${m.price}</span>
-                <span className="text-sm opacity-70">{m.period}</span>
+              <div className="mb-6">
+                <div className="flex items-end gap-1">
+                  <span className="font-display text-6xl font-black">${m.price}</span>
+                  <span className="text-sm opacity-70">{m.period}*</span>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <Link
+                    to="/membership-terms"
+                    className={`text-xs underline ${
+                      m.featured ? "text-white/90 hover:text-accent" : "text-brand hover:text-accent"
+                    }`}
+                  >
+                    Membership terms
+                  </Link>
+                  <p
+                    className={`text-[11px] leading-relaxed opacity-80 whitespace-pre-line ${
+                      m.featured ? "text-white/80" : "text-muted-foreground"
+                    }`}
+                  >
+                    {membershipNotes[m.name]}
+                  </p>
+                </div>
               </div>
               <ul className="space-y-3 mb-10 flex-1">
                 {m.features.map((f) => (
