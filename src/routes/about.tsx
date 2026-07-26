@@ -20,35 +20,93 @@ function AboutPage() {
   return (
     <>
       <PageHero eyebrow="About" title="We Lived It. Now We Talk It." description="A media network created to inform, challenge, entertain, and connect." />
-      <section className="py-16">
+
+      {/* 1. WHO WE ARE */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
+          <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Who We Are</div>
+          <img
+            src="/images/thafix-logo-horizontal.png"
+            alt="Tha Fix"
+            className="w-full h-auto max-w-full mb-8"
+          />
+          <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">This Is Tha Fix</h2>
+          <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
+            <p>Tha Fix brings together two men with decades of lived experience and unfiltered perspectives.</p>
+            <p>Hosted by Jon Mic and Marcus Davis - two brothers who met behind bars and rebuilt their lives beyond the walls - Tha Fix breaks down sports, politics, violence, community, and the culture shaping us all.</p>
+            <p>From prison to purpose, every conversation is raw, real, and relevant. No fluff. Nothing fake. Just the fix you've been missing.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. OUR MISSION */}
+      <section className="py-16 lg:py-20 bg-[#F7F8FA] border-y border-border">
+        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
+          <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Our Mission</div>
+          <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">What Drives Us</h2>
+          <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
+            <p>Tha Fix exists to create honest conversations shaped by lived experience. We examine the issues affecting our communities, challenge the thinking that keeps people stuck, and make room for perspectives that are often overlooked.</p>
+            <p>We do more than identify problems. We talk about accountability, solutions, growth, and what it takes to move forward.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. OUR VISION */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
+          <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Our Vision</div>
+          <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">Where We're Going</h2>
+          <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
+            <p>Tha Fix is growing beyond a show into a media network where hosts, guests, creators, and members can share perspectives, tell meaningful stories, and participate in conversations that matter.</p>
+            <p>Through original shows, interviews, articles, community discussions, events, and partnerships, Tha Fix Media Network will create opportunities for authentic voices to be heard and real connections to be built.</p>
+            <p>We lived it. Now we talk it - and we're building a network where others can tell their stories too.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. MEET THE HOSTS */}
+      <section className="py-16 lg:py-20 bg-[#F7F8FA] border-y border-border">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-start">
           <div className="aspect-[4/5] overflow-hidden border border-border">
             <img src="/images/hosts-about.jpg" alt="The hosts of Tha Fix" className="w-full h-full object-cover" />
           </div>
-          <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
-            <img
-              src="/images/thafix-logo-horizontal.png"
-              alt="Tha Fix"
-              className="w-full h-auto max-w-full mb-2"
-            />
-            <p>Tha Fix brings together two men with decades of lived experience and unfiltered perspective.</p>
-            <p>Hosted by <strong>Jon Mic</strong> and <strong>Marcus Davis</strong>, two brothers who met behind bars and rebuilt their lives outside the walls — now breaking down sports, politics, violence, community, and the culture that shapes us all.</p>
-            <p>From prison to purpose, every conversation is raw, real, and relevant. No fluff. No fake. Just the fix you've been missing.</p>
+          <div>
+            <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Meet the Hosts</div>
+            <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">Two Voices. One Mission.</h2>
+            <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
+              <div>
+                <h3 className="font-display text-2xl font-black mb-2 text-foreground">Jon Mic</h3>
+                <p>Jon Mic brings wisdom, directness, and decades of perspective to every conversation. His voice reflects the lessons of experience, personal transformation, and a willingness to speak honestly - even when the truth is uncomfortable.</p>
+              </div>
+              <div>
+                <h3 className="font-display text-2xl font-black mb-2 text-foreground">Marcus Davis</h3>
+                <p>Marcus Davis brings a strategic, community-focused perspective shaped by his journey from incarceration to entrepreneurship and leadership. He connects lived experience with practical thinking about culture, business, opportunity, and progress.</p>
+              </div>
+              <p>Together, Jon Mic and Marcus offer two distinct perspectives connected by one mission: to have real conversations that inform, challenge, entertain, and inspire.</p>
+            </div>
           </div>
         </div>
       </section>
-      <section className="py-20 bg-[#F7F8FA] border-y border-border">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-10">
-          {[
-            ["Authenticity", "Lived experience, no polish."],
-            ["Accountability", "We talk about fixing, not just complaining."],
-            ["Culture", "Where street meets strategy."],
-          ].map(([t, b]) => (
-            <div key={t}>
-              <h3 className="font-display text-3xl font-black mb-3">{t}</h3>
-              <p className="text-muted-foreground">{b}</p>
+
+      {/* 5. WHAT WE STAND FOR */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
+          <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">What We Stand For</div>
+          <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-12">Our Values</h2>
+          <div className="space-y-10 text-lg text-foreground/80 leading-relaxed">
+            <div>
+              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Authenticity</h3>
+              <p>Our conversations come from lived experience - not rehearsed opinions or manufactured controversy. We speak honestly about what we have seen, survived, learned, and become.</p>
             </div>
-          ))}
+            <div>
+              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Accountability</h3>
+              <p>We do more than complain about what is broken. We examine our own choices, challenge each other, and talk about what it takes to create meaningful change.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Culture</h3>
+              <p>Tha Fix lives where street knowledge meets strategy. We explore the people, experiences, decisions, and systems shaping our communities and the culture around us.</p>
+            </div>
+          </div>
         </div>
       </section>
 
