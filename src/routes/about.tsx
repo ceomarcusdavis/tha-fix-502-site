@@ -28,7 +28,7 @@ function AboutPage() {
           <img
             src="/images/thafix-logo-horizontal.png"
             alt="Tha Fix"
-            className="w-full h-auto max-w-full mb-8"
+            className="w-full h-auto max-w-[50%] mb-8"
           />
           <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-8">This Is Tha Fix</h2>
           <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
@@ -93,18 +93,18 @@ function AboutPage() {
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
           <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">What We Stand For</div>
           <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-12">Our Values</h2>
-          <div className="space-y-10 text-lg text-foreground/80 leading-relaxed">
-            <div>
-              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Authenticity</h3>
-              <p>Our conversations come from lived experience - not rehearsed opinions or manufactured controversy. We speak honestly about what we have seen, survived, learned, and become.</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
+              <h3 className="font-display text-2xl font-bold mb-3">Authenticity</h3>
+              <p className="text-muted-foreground">Our conversations come from lived experience - not rehearsed opinions or manufactured controversy. We speak honestly about what we have seen, survived, learned, and become.</p>
             </div>
-            <div>
-              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Accountability</h3>
-              <p>We do more than complain about what is broken. We examine our own choices, challenge each other, and talk about what it takes to create meaningful change.</p>
+            <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
+              <h3 className="font-display text-2xl font-bold mb-3">Accountability</h3>
+              <p className="text-muted-foreground">We do more than complain about what is broken. We examine our own choices, challenge each other, and talk about what it takes to create meaningful change.</p>
             </div>
-            <div>
-              <h3 className="font-display text-3xl font-black mb-3 text-foreground">Culture</h3>
-              <p>Tha Fix lives where street knowledge meets strategy. We explore the people, experiences, decisions, and systems shaping our communities and the culture around us.</p>
+            <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
+              <h3 className="font-display text-2xl font-bold mb-3">Culture</h3>
+              <p className="text-muted-foreground">Tha Fix lives where street knowledge meets strategy. We explore the people, experiences, decisions, and systems shaping our communities and the culture around us.</p>
             </div>
           </div>
         </div>
