@@ -17,7 +17,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Holler at us." description="Press, partnerships, guest pitches, or just to say what's up. We read every message." />
+      <PageHero eyebrow="Contact" title="Let's Connect." description="Questions, partnerships, press, or guest pitches — we want to hear from you." />
       <section className="py-16">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.3fr] gap-12">
           <div className="space-y-6">

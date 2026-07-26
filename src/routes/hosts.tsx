@@ -18,7 +18,7 @@ export const Route = createFileRoute("/hosts")({
 function HostsPage() {
   return (
     <>
-      <PageHero eyebrow="The Hosts" title="The voices behind the mic and the brand." description="Hosted by Jon Mic and Marcus Davis, Tha Fix is where real ones pull up for real talk." />
+      <PageHero eyebrow="The Hosts" title="The Voices Behind Tha Fix." description="Two perspectives. One mission. Real talk shaped by real experience." />
       <section className="py-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 space-y-24">
           {hosts.map((h, i) => (

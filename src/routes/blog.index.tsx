@@ -43,7 +43,7 @@ function BlogPage() {
       <PageHero
         eyebrow="Blog"
         title="Notes from the network."
-        description="Long-form writing, episode breakdowns, and conversations we couldn't fit on the mic."
+        description="Long-form perspectives and conversations beyond the mic — with members joining the discussion in the comments and eligible members publishing content of their own."
       />
       <section className="py-10 border-b border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row lg:items-center gap-5">

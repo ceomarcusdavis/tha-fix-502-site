@@ -17,7 +17,7 @@ export const Route = createFileRoute("/guests")({
 function GuestsPage() {
   return (
     <>
-      <PageHero eyebrow="Guests" title="The voices we sit down with." description="Founders. Athletes. Faith leaders. Organizers. Everyday people with extraordinary stories." />
+      <PageHero eyebrow="Guests" title="Real People. Real Stories." description="Meet the guests who bring their experiences, perspectives, and truth to Tha Fix." />
       <section className="py-16">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {guests.map((g) => (

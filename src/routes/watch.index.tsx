@@ -41,8 +41,8 @@ function WatchPage() {
     <>
       <PageHero
         eyebrow="Watch"
-        title="Every conversation. Every episode."
-        description="The full archive of Tha Fix. Filter by topic, search by guest, or just hit play."
+        title="Watch Tha Fix."
+        description="Every episode. Every guest. Every conversation — all in one place."
       />
       <section className="py-10 border-b border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row lg:items-center gap-5">

@@ -18,7 +18,7 @@ export const Route = createFileRoute("/shop")({
 function ShopPage() {
   return (
     <>
-      <PageHero eyebrow="The Supply" title="Wear the message." description="Premium streetwear and accessories built to last. A piece of the movement." />
+      <PageHero eyebrow="The Supply" title="Represent Tha Fix." description="Wear the message. Support the network." />
       <section className="py-16">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((p) => (

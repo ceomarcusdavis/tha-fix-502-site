@@ -18,7 +18,7 @@ export const Route = createFileRoute("/memberships")({
 function MembershipsPage() {
   return (
     <>
-      <PageHero eyebrow="Memberships" title="Join the family." description="This isn't a subscription. It's an invitation to keep the conversation going every single day." />
+      <PageHero eyebrow="Memberships" title="Your Access Starts Here." description="Get closer to the hosts, the content, and the community behind Tha Fix." />
       <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-6">
           {memberships.map((m) => (
