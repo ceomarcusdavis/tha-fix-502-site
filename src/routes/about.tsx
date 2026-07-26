@@ -95,15 +95,15 @@ function AboutPage() {
           <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-12">Our Values</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
-              <h3 className="font-display text-2xl font-bold mb-3">Authenticity</h3>
+              <h3 className="font-display text-2xl font-bold mb-3 text-center">Authenticity</h3>
               <p className="text-muted-foreground">Our conversations come from lived experience - not rehearsed opinions or manufactured controversy. We speak honestly about what we have seen, survived, learned, and become.</p>
             </div>
             <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
-              <h3 className="font-display text-2xl font-bold mb-3">Accountability</h3>
+              <h3 className="font-display text-2xl font-bold mb-3 text-center">Accountability</h3>
               <p className="text-muted-foreground">We do more than complain about what is broken. We examine our own choices, challenge each other, and talk about what it takes to create meaningful change.</p>
             </div>
             <div className="p-8 border border-border bg-surface hover:border-accent transition-colors">
-              <h3 className="font-display text-2xl font-bold mb-3">Culture</h3>
+              <h3 className="font-display text-2xl font-bold mb-3 text-center">Culture</h3>
               <p className="text-muted-foreground">Tha Fix lives where street knowledge meets strategy. We explore the people, experiences, decisions, and systems shaping our communities and the culture around us.</p>
             </div>
           </div>
