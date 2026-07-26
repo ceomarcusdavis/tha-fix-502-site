@@ -53,7 +53,7 @@ function MembershipsPage() {
                       m.featured ? "text-white/90 hover:text-accent" : "text-brand hover:text-accent"
                     }`}
                   >
-                    Membership terms
+                    Membership Terms
                   </Link>
                   <p
                     className={`text-[11px] leading-relaxed opacity-80 whitespace-pre-line ${
