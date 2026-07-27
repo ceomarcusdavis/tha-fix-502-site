@@ -91,7 +91,7 @@ function Index() {
 
       <ContentRail eyebrow="Full Episodes" title="Real Conversations. Unfiltered Perspectives." episodes={episodes.slice(0, 6)} size="md" />
 
-      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 60 Seconds or Less." episodes={episodes.slice().reverse()} size="md" />
+      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 90 Seconds or Less." episodes={episodes.slice().reverse()} size="md" />
 
       {/* HOST SPOTLIGHT */}
       <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
