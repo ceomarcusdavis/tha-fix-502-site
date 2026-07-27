@@ -19,7 +19,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = episodes[0];
+  const fullEpisodes = episodes.filter((e) => e.kind === "full");
+  const quickFix = episodes.filter((e) => e.kind === "quick");
+  const featured = fullEpisodes[0] ?? episodes[0];
   return (
     <>
       {/* HERO */}
@@ -89,9 +91,9 @@ function Index() {
         </div>
       </section>
 
-      <ContentRail eyebrow="Full Episodes" title="Real Conversations. Unfiltered Perspectives." episodes={episodes.slice(0, 6)} size="md" />
+      <ContentRail eyebrow="Full Episodes" title="Real Conversations. Unfiltered Perspectives." episodes={fullEpisodes} size="md" />
 
-      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 90 Seconds or Less." episodes={episodes.slice().reverse()} size="md" />
+      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 90 Seconds or Less." episodes={quickFix} size="md" />
 
       {/* HOST SPOTLIGHT */}
       <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
