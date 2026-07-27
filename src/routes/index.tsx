@@ -89,9 +89,9 @@ function Index() {
         </div>
       </section>
 
-      <ContentRail eyebrow="Trending Now" title="The Conversations Moving Culture" episodes={episodes.slice(0, 6)} size="md" />
+      <ContentRail eyebrow="Full Episodes" title="Real Conversations. Unfiltered Perspectives." episodes={episodes.slice(0, 6)} size="md" />
 
-      <ContentRail eyebrow="New This Week" title="Fresh Drops" episodes={episodes.slice().reverse()} size="md" />
+      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 60 Seconds or Less." episodes={episodes.slice().reverse()} size="md" />
 
       {/* HOST SPOTLIGHT */}
       <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
