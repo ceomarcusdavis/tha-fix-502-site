@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Play, Share2, Heart, Calendar, Clock } from "lucide-react";
+import { Share2, Heart, Calendar, Clock } from "lucide-react";
 import { episodes } from "@/data/content";
 import { EpisodeCard } from "@/components/episode-card";
 
@@ -47,17 +47,15 @@ function EpisodePage() {
     <>
       <section className="pt-24 pb-10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="aspect-video relative bg-surface border border-border overflow-hidden group cursor-pointer">
-            <img src={ep.image} alt={ep.title} className="w-full h-full object-cover" width={1920} height={1080} />
-            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-colors" />
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="size-20 md:size-24 rounded-full bg-brand text-brand-foreground grid place-items-center group-hover:scale-110 transition-transform">
-                <Play className="w-8 h-8 fill-current" />
-              </div>
-            </div>
-            <div className="absolute bottom-4 left-4 bg-background/85 backdrop-blur-sm px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest">
-              S{ep.season} · E{ep.number}
-            </div>
+          <div className="aspect-video relative bg-surface border border-border overflow-hidden">
+            <iframe
+              src={`https://www.youtube.com/embed/${ep.youtubeId}?rel=0`}
+              title={ep.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
         </div>
       </section>
