@@ -31,6 +31,7 @@ import { Route as WatchIndexRouteImport } from './routes/watch.index'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
+import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const TermsRoute = TermsRouteImport.update({
@@ -143,6 +144,11 @@ const WatchSlugRoute = WatchSlugRouteImport.update({
   path: '/watch/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog': typeof BlogIndexRoute
   '/events': typeof EventsIndexRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
     | '/watch/$slug'
     | '/blog/'
     | '/events/'
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
     | '/watch/$slug'
     | '/blog'
     | '/events'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
     | '/watch/$slug'
     | '/blog/'
     | '/events/'
@@ -323,6 +335,7 @@ export interface RootRouteChildren {
   SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
   WatchSlugRoute: typeof WatchSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -485,6 +498,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -515,6 +535,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
   WatchSlugRoute: WatchSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   EventsIndexRoute: EventsIndexRoute,

@@ -76,8 +76,8 @@ function EventDetailPage() {
             {event.program && (
               <>
                 <h3 className="font-display text-xl font-bold mb-4">Tentative Program</h3>
-                <ul className="space-y-2 mb-8">
-                  {event.program.map((p) => (
+              <ul className="space-y-2 mb-8">
+                  {event.program.map((p: string) => (
                     <li key={p} className="flex items-start gap-3 text-sm">
                       <CheckCircle2 className="w-4 h-4 text-brand mt-0.5 shrink-0" />
                       <span>{p}</span>
@@ -91,7 +91,7 @@ function EventDetailPage() {
               <>
                 <h3 className="font-display text-xl font-bold mb-4">Access Rules</h3>
                 <ul className="space-y-2 mb-8">
-                  {event.accessRules.map((r) => (
+                  {event.accessRules.map((r: string) => (
                     <li key={r} className="flex items-start gap-3 text-sm">
                       <span className="text-brand font-black mt-0.5">•</span>
                       <span>{r}</span>
