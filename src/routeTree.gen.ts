@@ -31,6 +31,7 @@ import { Route as WatchIndexRouteImport } from './routes/watch.index'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
+import { Route as EventsRequestRouteImport } from './routes/events.request'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -144,6 +145,11 @@ const WatchSlugRoute = WatchSlugRouteImport.update({
   path: '/watch/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRequestRoute = EventsRequestRouteImport.update({
+  id: '/events/request',
+  path: '/events/request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsSlugRoute = EventsSlugRouteImport.update({
   id: '/events/$slug',
   path: '/events/$slug',
@@ -176,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog': typeof BlogIndexRoute
   '/events': typeof EventsIndexRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/blog/$slug'
     | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog/'
     | '/events/'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/blog/$slug'
     | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog'
     | '/events'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/blog/$slug'
     | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog/'
     | '/events/'
@@ -336,6 +348,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   EventsSlugRoute: typeof EventsSlugRoute
+  EventsRequestRoute: typeof EventsRequestRoute
   WatchSlugRoute: typeof WatchSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/request': {
+      id: '/events/request'
+      path: '/events/request'
+      fullPath: '/events/request'
+      preLoaderRoute: typeof EventsRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events/$slug': {
       id: '/events/$slug'
       path: '/events/$slug'
@@ -536,6 +556,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   EventsSlugRoute: EventsSlugRoute,
+  EventsRequestRoute: EventsRequestRoute,
   WatchSlugRoute: WatchSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
@@ -544,3 +565,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
