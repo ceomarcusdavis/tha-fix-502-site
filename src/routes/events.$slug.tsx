@@ -179,7 +179,7 @@ function EventDetailPage() {
                   {event.cta}
                 </button>
                 <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  Must be 18 or older. Submitting an RSVP does not guarantee admission.
+                  Must be 18 or older. Submitting an RSVP does not guarantee admission. By RSVP'ing, you agree to the <Link to="/event-terms" className="underline hover:text-brand">Event, RSVP, and Ticket Terms</Link>.
                 </p>
               </form>
             )}
