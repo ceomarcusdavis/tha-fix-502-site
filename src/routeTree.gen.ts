@@ -22,15 +22,17 @@ import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuidelinesRouteImport } from './routes/guidelines'
 import { Route as GuestsRouteImport } from './routes/guests'
-import { Route as EventsRouteImport } from './routes/events'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchIndexRouteImport } from './routes/watch.index'
+import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
+import { Route as EventsRequestRouteImport } from './routes/events.request'
+import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const TermsRoute = TermsRouteImport.update({
@@ -98,11 +100,6 @@ const GuestsRoute = GuestsRouteImport.update({
   path: '/guests',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -133,6 +130,11 @@ const WatchIndexRoute = WatchIndexRouteImport.update({
   path: '/watch/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -141,6 +143,16 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const WatchSlugRoute = WatchSlugRouteImport.update({
   id: '/watch/$slug',
   path: '/watch/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRequestRoute = EventsRequestRouteImport.update({
+  id: '/events/request',
+  path: '/events/request',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -155,7 +167,6 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -170,8 +181,11 @@ export interface FileRoutesByFullPath {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/events/': typeof EventsIndexRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRoutesByTo {
@@ -180,7 +194,6 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -195,8 +208,11 @@ export interface FileRoutesByTo {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/events': typeof EventsIndexRoute
   '/watch': typeof WatchIndexRoute
 }
 export interface FileRoutesById {
@@ -206,7 +222,6 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -221,8 +236,11 @@ export interface FileRoutesById {
   '/support-terms': typeof SupportTermsRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/request': typeof EventsRequestRoute
   '/watch/$slug': typeof WatchSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/events/': typeof EventsIndexRoute
   '/watch/': typeof WatchIndexRoute
 }
 export interface FileRouteTypes {
@@ -233,7 +251,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -248,8 +265,11 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog/'
+    | '/events/'
     | '/watch/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -258,7 +278,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -273,8 +292,11 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog'
+    | '/events'
     | '/watch'
   id:
     | '__root__'
@@ -283,7 +305,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -298,8 +319,11 @@ export interface FileRouteTypes {
     | '/support-terms'
     | '/terms'
     | '/blog/$slug'
+    | '/events/$slug'
+    | '/events/request'
     | '/watch/$slug'
     | '/blog/'
+    | '/events/'
     | '/watch/'
   fileRoutesById: FileRoutesById
 }
@@ -309,7 +333,6 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
-  EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   GuidelinesRoute: typeof GuidelinesRoute
   HostsRoute: typeof HostsRoute
@@ -324,8 +347,11 @@ export interface RootRouteChildren {
   SupportTermsRoute: typeof SupportTermsRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
+  EventsRequestRoute: typeof EventsRequestRoute
   WatchSlugRoute: typeof WatchSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
   WatchIndexRoute: typeof WatchIndexRoute
 }
 
@@ -422,13 +448,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -471,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -483,6 +509,20 @@ declare module '@tanstack/react-router' {
       path: '/watch/$slug'
       fullPath: '/watch/$slug'
       preLoaderRoute: typeof WatchSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/request': {
+      id: '/events/request'
+      path: '/events/request'
+      fullPath: '/events/request'
+      preLoaderRoute: typeof EventsRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -501,7 +541,6 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
-  EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   GuidelinesRoute: GuidelinesRoute,
   HostsRoute: HostsRoute,
@@ -516,8 +555,11 @@ const rootRouteChildren: RootRouteChildren = {
   SupportTermsRoute: SupportTermsRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
+  EventsRequestRoute: EventsRequestRoute,
   WatchSlugRoute: WatchSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
   WatchIndexRoute: WatchIndexRoute,
 }
 export const routeTree = rootRouteImport
