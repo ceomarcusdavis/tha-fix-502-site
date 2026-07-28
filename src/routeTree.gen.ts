@@ -22,7 +22,6 @@ import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuidelinesRouteImport } from './routes/guidelines'
 import { Route as GuestsRouteImport } from './routes/guests'
-import { Route as EventsRouteImport } from './routes/events'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
@@ -98,11 +97,6 @@ const GuestsRoute = GuestsRouteImport.update({
   path: '/guests',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -155,7 +149,6 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -180,7 +173,6 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -206,7 +198,6 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
-  '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
@@ -233,7 +224,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -258,7 +248,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -283,7 +272,6 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/community'
     | '/contact'
-    | '/events'
     | '/guests'
     | '/guidelines'
     | '/hosts'
@@ -309,7 +297,6 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
-  EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   GuidelinesRoute: typeof GuidelinesRoute
   HostsRoute: typeof HostsRoute
@@ -422,13 +409,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -501,7 +481,6 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
-  EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   GuidelinesRoute: GuidelinesRoute,
   HostsRoute: HostsRoute,
@@ -523,13 +502,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
