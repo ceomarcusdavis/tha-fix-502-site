@@ -102,6 +102,7 @@ export function SiteFooter() {
             <Link to="/shipping-returns" className="hover:text-white">Shipping & Returns</Link>
             <Link to="/support-terms" className="hover:text-white">Support Terms</Link>
             <Link to="/accessibility" className="hover:text-white">Accessibility</Link>
+            <Link to="/event-terms" className="hover:text-white">Event Terms</Link>
           </div>
         </div>
       </div>
