@@ -128,7 +128,7 @@ function MembershipsPage() {
       </section>
 
       {/* MEMBERSHIP PLANS */}
-      <section className="py-16 lg:py-24">
+      <section id="membership-plans" className="py-16 lg:py-24">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 mb-12 text-center">
           <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-3">Membership Plans</div>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight">
@@ -230,7 +230,7 @@ function MembershipsPage() {
       </section>
 
       {/* COMPARISON TABLE */}
-      <section className="py-16 border-t border-border">
+      <section id="compare-benefits" className="py-16 border-t border-border">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-10">Compare every benefit</h2>
           <div className="overflow-x-auto">
@@ -321,7 +321,7 @@ function MembershipsPage() {
           <p className="text-muted-foreground leading-relaxed mb-10">
             Our first members will do more than support the show. They will help shape the community, influence future content, and establish the foundation for what Tha Fix becomes.
           </p>
-          <a href="#top" className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">
+          <a href="#membership-plans" className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">
             Choose Your Membership <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -359,7 +359,7 @@ function MembershipsPage() {
             Watch more. Say more. Build stronger connections. Join Tha Fix at the level that matches how you want to participate.
           </p>
           <div className="flex flex-wrap gap-3 justify-center mb-8">
-            <a href="#top" className="bg-accent text-foreground px-8 py-4 text-xs font-bold uppercase tracking-widest hover:brightness-110 transition">
+            <a href="#compare-benefits" className="bg-accent text-foreground px-8 py-4 text-xs font-bold uppercase tracking-widest hover:brightness-110 transition">
               Compare Memberships
             </a>
             <Link to="/membership-terms" className="border border-brand-foreground/30 px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-brand-foreground/10 transition">
