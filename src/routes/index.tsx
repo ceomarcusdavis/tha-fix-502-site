@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Info, ArrowRight, Calendar, Users, Headphones } from "lucide-react";
 import heroImg from "@/assets/hero-episode.jpg";
-import { episodes, hosts, guests, products, memberships, sponsors } from "@/data/content";
+import { episodes, hosts, products, memberships, sponsors } from "@/data/content";
 import { ContentRail } from "@/components/content-rail";
 
 export const Route = createFileRoute("/")({
@@ -125,34 +125,6 @@ function Index() {
                       : "A Louisville native and Ballard High School graduate, Jon is known for being genuine, loyal, and unapologetically straightforward. (click image for full bio)"}
                   </p>
                 </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED GUESTS */}
-      <section className="py-20 lg:py-28">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-2">Featured Voices</div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight">
-                Real people. Real perspective.
-              </h2>
-            </div>
-            <Link to="/guests" className="hidden md:inline-flex text-xs font-bold uppercase tracking-widest border-b border-brand text-brand pb-1">
-              All Guests
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {guests.map((g) => (
-              <Link key={g.slug} to="/guests" className="group">
-                <div className="aspect-[3/4] overflow-hidden bg-surface border border-border mb-4">
-                  <img src={g.image} alt={g.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
-                </div>
-                <h3 className="font-display text-lg font-bold group-hover:text-accent transition-colors">{g.name}</h3>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider mt-1">{g.title}</p>
               </Link>
             ))}
           </div>

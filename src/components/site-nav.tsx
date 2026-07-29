@@ -5,7 +5,6 @@ import { Menu, X, Play } from "lucide-react";
 const links = [
   { to: "/watch", label: "Watch" },
   { to: "/hosts", label: "Hosts" },
-  { to: "/guests", label: "Guests" },
   { to: "/memberships", label: "Memberships" },
   { to: "/shop", label: "Shop" },
   { to: "/community", label: "Community" },

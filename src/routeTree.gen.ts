@@ -21,7 +21,6 @@ import { Route as MembershipsRouteImport } from './routes/memberships'
 import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GuidelinesRouteImport } from './routes/guidelines'
-import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventTermsRouteImport } from './routes/event-terms'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -94,11 +93,6 @@ const HostsRoute = HostsRouteImport.update({
 const GuidelinesRoute = GuidelinesRouteImport.update({
   id: '/guidelines',
   path: '/guidelines',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestsRoute = GuestsRouteImport.update({
-  id: '/guests',
-  path: '/guests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventTermsRoute = EventTermsRouteImport.update({
@@ -174,7 +168,6 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/event-terms': typeof EventTermsRoute
-  '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
@@ -202,7 +195,6 @@ export interface FileRoutesByTo {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/event-terms': typeof EventTermsRoute
-  '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
@@ -231,7 +223,6 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/event-terms': typeof EventTermsRoute
-  '/guests': typeof GuestsRoute
   '/guidelines': typeof GuidelinesRoute
   '/hosts': typeof HostsRoute
   '/membership-terms': typeof MembershipTermsRoute
@@ -261,7 +252,6 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/event-terms'
-    | '/guests'
     | '/guidelines'
     | '/hosts'
     | '/membership-terms'
@@ -289,7 +279,6 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/event-terms'
-    | '/guests'
     | '/guidelines'
     | '/hosts'
     | '/membership-terms'
@@ -317,7 +306,6 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/event-terms'
-    | '/guests'
     | '/guidelines'
     | '/hosts'
     | '/membership-terms'
@@ -346,7 +334,6 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
   EventTermsRoute: typeof EventTermsRoute
-  GuestsRoute: typeof GuestsRoute
   GuidelinesRoute: typeof GuidelinesRoute
   HostsRoute: typeof HostsRoute
   MembershipTermsRoute: typeof MembershipTermsRoute
@@ -454,13 +441,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidelinesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guests': {
-      id: '/guests'
-      path: '/guests'
-      fullPath: '/guests'
-      preLoaderRoute: typeof GuestsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/event-terms': {
       id: '/event-terms'
       path: '/event-terms'
@@ -562,7 +542,6 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
   EventTermsRoute: EventTermsRoute,
-  GuestsRoute: GuestsRoute,
   GuidelinesRoute: GuidelinesRoute,
   HostsRoute: HostsRoute,
   MembershipTermsRoute: MembershipTermsRoute,
