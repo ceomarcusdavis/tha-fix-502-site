@@ -7,7 +7,6 @@ const cols = [
     links: [
       { to: "/watch", label: "Watch Episodes" },
       { to: "/hosts", label: "Hosts" },
-      { to: "/guests", label: "Guests" },
       { to: "/blog", label: "Blog" },
     ],
   },
