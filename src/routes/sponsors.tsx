@@ -427,7 +427,7 @@ function SponsorsPage() {
         <PageHero
           eyebrow="Sponsors & Partners"
           title="Partner With Tha Fix"
-          description="Connect your brand with audiences interested in culture, community, entrepreneurship, entertainment, and transformation—and help power conversations that matter."
+          description="Connect your brand with audiences interested in culture, community, entrepreneurship, entertainment, and transformation - and help power conversations that matter."
         />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 pt-10">
           <p className="max-w-3xl text-muted-foreground leading-relaxed">
@@ -767,7 +767,7 @@ function SponsorsPage() {
         <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
           <div className="text-accent text-[11px] font-bold uppercase tracking-[0.3em] mb-3">Our Standards</div>
           <h2 className="font-display text-4xl md:text-5xl font-black tracking-tight mb-5 text-white">
-            The Conversation Is Real—and Our Standards Matter
+            The Conversation Is Real, and Our Standards Matter
           </h2>
           <p className="text-white/70 leading-relaxed">
             Tha Fix reviews every proposed advertiser, sponsor, advertisement, offer, and
