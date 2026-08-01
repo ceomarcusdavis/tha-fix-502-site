@@ -228,17 +228,22 @@ function Index() {
 
       {/* SPONSORS STRIP */}
       <section className="py-16 border-b border-border">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
-          <div className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-8">
-            Powered by partners who believe in the mission
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-10 text-center">
+          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">
+            Sponsors &amp; Partners
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {sponsors.map((s) => (
-              <div key={s} className="font-display font-black text-lg tracking-tight text-foreground/40 hover:text-foreground transition-colors">
-                {s}
-              </div>
-            ))}
-          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-black tracking-tighter mb-4 text-balance">
+            Put your brand behind conversations that matter.
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-7">
+            Advertising, sponsorship, branded content, events, and partnership opportunities across the Tha Fix network.
+          </p>
+          <Link
+            to="/sponsors"
+            className="inline-block bg-brand text-brand-foreground px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors"
+          >
+            Explore Partnership Opportunities
+          </Link>
         </div>
       </section>
 
