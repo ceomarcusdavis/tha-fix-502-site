@@ -267,9 +267,8 @@ export const memberships = [
   },
 ] as const;
 
-export const sponsors = [
-  "ORIGIN CAPITAL", "BLOCKWORK", "THE 8TH FLOOR", "LEGACY FM", "NORTHSTAR APPAREL", "RUNTABLE", "GROUNDED CO.", "META MUTUAL",
-];
+// Only confirmed sponsors with display permission should be listed here.
+export const sponsors: string[] = [];
 
 export type BlogPost = {
   slug: string;

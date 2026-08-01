@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Info, ArrowRight, Calendar, Users, Headphones } from "lucide-react";
 import heroImg from "@/assets/hero-episode.jpg";
-import { episodes, hosts, products, memberships, sponsors } from "@/data/content";
+import { episodes, hosts, products, memberships } from "@/data/content";
 import { ContentRail } from "@/components/content-rail";
 
 export const Route = createFileRoute("/")({
