@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
+import { ContentRail } from "@/components/content-rail";
 import { EpisodeCard } from "@/components/episode-card";
 import { PageHero } from "@/components/page-hero";
-import { getWatchFeed } from "@/lib/public-content";
+import { getContentPlacements, getWatchFeed } from "@/lib/public-content";
 
 export const Route = createFileRoute("/watch/")({
   head: () => ({
@@ -39,6 +40,12 @@ function WatchPage() {
     return () => window.clearTimeout(timer);
   }, [query]);
 
+  const featuredQuery = useQuery({
+    queryKey: ["public-watch-featured"],
+    queryFn: () => getContentPlacements(["watch_featured"]),
+    staleTime: 5 * 60 * 1000,
+  });
+
   const topicsQuery = useQuery({
     queryKey: ["public-watch-topics"],
     queryFn: () => getWatchFeed({ limit: 100 }),
@@ -66,6 +73,14 @@ function WatchPage() {
     return [...topicMap.entries()].sort((a, b) => a[1].localeCompare(b[1]));
   }, [topicsQuery.data]);
 
+  const featured = useMemo(
+    () =>
+      (featuredQuery.data ?? [])
+        .slice()
+        .sort((a, b) => a.placement_position - b.placement_position),
+    [featuredQuery.data],
+  );
+
   const hasFilters = format !== "all" || topic !== "all" || query !== "";
   const clearFilters = () => {
     setQuery("");
@@ -82,7 +97,16 @@ function WatchPage() {
         description="The full archive of Tha Fix. Filter by topic, search by guest, or just hit play."
       />
 
-      <section className="py-10 border-b border-border">
+      {featured.length > 0 && (
+        <ContentRail
+          eyebrow="Featured"
+          title="Start with the conversations moving Tha Fix."
+          episodes={featured}
+          size="md"
+        />
+      )}
+
+      <section className="py-10 border-y border-border bg-[#F7F8FA]">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 space-y-5">
           <div className="flex flex-col lg:flex-row lg:items-center gap-5">
             <label className="relative flex-1 max-w-xl">
@@ -93,7 +117,7 @@ function WatchPage() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search conversations, topics, hosts, or guests..."
-                className="w-full bg-surface border border-border pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-brand"
+                className="w-full bg-background border border-border pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-brand"
               />
             </label>
 
@@ -160,6 +184,15 @@ function WatchPage() {
 
       <section className="py-14" aria-live="polite">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
+          <div className="mb-10">
+            <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-2">
+              The Archive
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+              Every published conversation
+            </h2>
+          </div>
+
           {feedQuery.isPending ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10" aria-hidden="true">
               {Array.from({ length: 6 }).map((_, index) => (

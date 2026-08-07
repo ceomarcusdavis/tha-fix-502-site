@@ -197,10 +197,12 @@ export function getPrimaryCredit(
   );
 }
 
-export async function getHomepagePlacements(): Promise<PublicContentPlacement[]> {
+export async function getContentPlacements(
+  slotCodes: string[],
+): Promise<PublicContentPlacement[]> {
   const placementParams = new URLSearchParams({
     organization_public_id: `eq.${THA_FIX_ORGANIZATION_ID}`,
-    slot_code: "in.(home_featured_episode,home_latest_clips,home_featured_blog)",
+    slot_code: `in.(${slotCodes.join(",")})`,
     order: "placement_position.asc",
   });
 
@@ -223,6 +225,14 @@ export async function getHomepagePlacements(): Promise<PublicContentPlacement[]>
     const item = contentById.get(placement.content_public_id);
     return item ? [{ ...item, ...placement }] : [];
   });
+}
+
+export function getHomepagePlacements(): Promise<PublicContentPlacement[]> {
+  return getContentPlacements([
+    "home_featured_episode",
+    "home_latest_clips",
+    "home_featured_blog",
+  ]);
 }
 
 export async function getPersonPlacements(
