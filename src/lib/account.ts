@@ -180,6 +180,49 @@ export async function sendPasswordReset(email: string) {
   if (!response.ok) return parseError(response, "We couldn’t send a password-reset email.");
 }
 
+export async function consumeRecoverySessionFromUrl(): Promise<boolean> {
+  if (typeof window === "undefined" || !window.location.hash) return false;
+  const params = new URLSearchParams(window.location.hash.slice(1));
+  const accessToken = params.get("access_token");
+  const refreshToken = params.get("refresh_token");
+  const type = params.get("type");
+  if (!accessToken || !refreshToken || type !== "recovery") return false;
+
+  const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!userResponse.ok) return parseError(userResponse, "This password-reset link is invalid or expired.");
+  const user = await userResponse.json();
+  storeSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+    expires_in: Number(params.get("expires_in") || 3600),
+    token_type: params.get("token_type") || "bearer",
+    user,
+  });
+  window.history.replaceState({}, document.title, `${window.location.pathname}${window.location.search}`);
+  return true;
+}
+
+export async function updatePassword(newPassword: string) {
+  const session = await getSession();
+  if (!session) throw new Error("This password-reset session is invalid or expired.");
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    method: "PUT",
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${session.access_token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password: newPassword }),
+  });
+  if (!response.ok) return parseError(response, "We couldn’t update your password.");
+  await signOut();
+}
+
 async function authenticatedRpc<T>(name: string, body: Record<string, unknown>): Promise<T> {
   const session = await getSession();
   if (!session) throw new Error("Please sign in to continue.");
