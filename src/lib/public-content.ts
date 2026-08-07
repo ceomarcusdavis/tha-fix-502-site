@@ -3,11 +3,9 @@ const DEFAULT_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_KTDIiehW5udh-Q60dwnIdw_
 
 export const THA_FIX_ORGANIZATION_ID = "TFM-ORG-000001";
 
-const SUPABASE_URL =
-  import.meta.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY =
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-  DEFAULT_SUPABASE_PUBLISHABLE_KEY;
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || DEFAULT_SUPABASE_PUBLISHABLE_KEY;
 
 export type PublicContentCredit = {
   organization_person_public_id: string;
@@ -95,14 +93,17 @@ export type PublicContentCard = {
   external_references: PublicExternalReference[];
 };
 
-export type PublicContentPlacement = PublicContentCard & {
+type PlacementMetadata = {
   slot_code: string;
   slot_name: string;
   page_code: string;
   placement_source: "manual" | "automatic";
   assignment_public_id: string | null;
   placement_position: number;
+  content_public_id: string;
 };
+
+export type PublicContentPlacement = PublicContentCard & PlacementMetadata;
 
 export type PublicPerson = {
   organization_public_id: string;
@@ -133,10 +134,7 @@ type WatchFeedOptions = {
   offset?: number;
 };
 
-async function supabaseRequest<T>(
-  path: string,
-  init: RequestInit = {},
-): Promise<T> {
+async function supabaseRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
   const response = await fetch(`${SUPABASE_URL}${path}`, {
     ...init,
     headers: {
@@ -192,24 +190,39 @@ export function getPrimaryCredit(
   content: PublicContentCard,
   roleCode: string,
 ): PublicContentCredit | undefined {
-  return content.credits.find(
-    (credit) => credit.credit_role_code === roleCode && credit.is_primary,
-  ) ?? content.credits.find((credit) => credit.credit_role_code === roleCode);
+  return (
+    content.credits.find(
+      (credit) => credit.credit_role_code === roleCode && credit.is_primary,
+    ) ?? content.credits.find((credit) => credit.credit_role_code === roleCode)
+  );
 }
 
-export async function getHomepagePlacements(): Promise<
-  PublicContentPlacement[]
-> {
-  const params = new URLSearchParams({
+export async function getHomepagePlacements(): Promise<PublicContentPlacement[]> {
+  const placementParams = new URLSearchParams({
     organization_public_id: `eq.${THA_FIX_ORGANIZATION_ID}`,
-    slot_code:
-      "in.(home_featured_episode,home_latest_clips,home_featured_blog)",
+    slot_code: "in.(home_featured_episode,home_latest_clips,home_featured_blog)",
     order: "placement_position.asc",
   });
 
-  return supabaseRequest<PublicContentPlacement[]>(
-    `/rest/v1/website_public_content_placement?${params.toString()}`,
+  const placements = await supabaseRequest<PlacementMetadata[]>(
+    `/rest/v1/website_public_content_placement?${placementParams.toString()}`,
   );
+  const contentIds = [...new Set(placements.map((placement) => placement.content_public_id))];
+  if (contentIds.length === 0) return [];
+
+  const contentParams = new URLSearchParams({
+    organization_public_id: `eq.${THA_FIX_ORGANIZATION_ID}`,
+    content_public_id: `in.(${contentIds.join(",")})`,
+  });
+  const content = await supabaseRequest<PublicContentCard[]>(
+    `/rest/v1/website_public_content_card?${contentParams.toString()}`,
+  );
+  const contentById = new Map(content.map((item) => [item.content_public_id, item]));
+
+  return placements.flatMap((placement) => {
+    const item = contentById.get(placement.content_public_id);
+    return item ? [{ ...item, ...placement }] : [];
+  });
 }
 
 export async function getPersonPlacements(
@@ -229,25 +242,20 @@ export async function getPersonPlacements(
 export async function getWatchFeed(
   options: WatchFeedOptions = {},
 ): Promise<PublicContentCard[]> {
-  return supabaseRequest<PublicContentCard[]>(
-    "/rest/v1/rpc/get_public_watch_feed",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
-        requested_format_code: options.formatCode || null,
-        requested_topic_slug: options.topicSlug || null,
-        requested_search: options.search || null,
-        requested_limit: options.limit ?? 24,
-        requested_offset: options.offset ?? 0,
-      }),
-    },
-  );
+  return supabaseRequest<PublicContentCard[]>("/rest/v1/rpc/get_public_watch_feed", {
+    method: "POST",
+    body: JSON.stringify({
+      requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
+      requested_format_code: options.formatCode || null,
+      requested_topic_slug: options.topicSlug || null,
+      requested_search: options.search || null,
+      requested_limit: options.limit ?? 24,
+      requested_offset: options.offset ?? 0,
+    }),
+  });
 }
 
-export async function getContentBySlug(
-  slug: string,
-): Promise<PublicContentCard | null> {
+export async function getContentBySlug(slug: string): Promise<PublicContentCard | null> {
   const rows = await supabaseRequest<PublicContentCard[]>(
     "/rest/v1/rpc/get_public_content_by_slug",
     {
@@ -263,9 +271,7 @@ export async function getContentBySlug(
   return rows[0] ?? null;
 }
 
-export async function getPersonBySlug(
-  slug: string,
-): Promise<PublicPerson | null> {
+export async function getPersonBySlug(slug: string): Promise<PublicPerson | null> {
   const rows = await supabaseRequest<PublicPerson[]>(
     "/rest/v1/rpc/get_public_person_by_slug",
     {
