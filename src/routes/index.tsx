@@ -1,40 +1,89 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, Info, ArrowRight, Calendar, Users, Headphones } from "lucide-react";
-import heroImg from "@/assets/hero-episode.jpg";
-import { episodes, hosts, products, memberships } from "@/data/content";
+import {
+  Play,
+  Info,
+  ArrowRight,
+  Calendar,
+  Users,
+  Headphones,
+} from "lucide-react";
+import { products, memberships } from "@/data/content";
 import { ContentRail } from "@/components/content-rail";
+import {
+  formatDuration,
+  getHomepagePlacements,
+  getPersonPlacements,
+  getPublicAssetUrl,
+  getWatchFeed,
+} from "@/lib/public-content";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Tha Fix — We Lived It. Now We Talk It." },
-      { name: "description", content: "A premium streaming media network. Real conversations on culture, community, sports, politics, and transformation." },
-      { property: "og:title", content: "Tha Fix Media Network" },
-      { property: "og:description", content: "Stream episodes, meet the hosts, join the community." },
-      { property: "og:image", content: heroImg },
-      { name: "twitter:image", content: heroImg },
-    ],
-  }),
+  loader: async () => {
+    try {
+      const [placements, hosts, watchFeed] = await Promise.all([
+        getHomepagePlacements(),
+        getPersonPlacements(["hosts_primary"]),
+        getWatchFeed({ limit: 100 }),
+      ]);
+      return { placements, hosts, watchFeed, loadError: false };
+    } catch (error) {
+      console.error("Homepage public content failed to load", error);
+      return { placements: [], hosts: [], watchFeed: [], loadError: true };
+    }
+  },
+  head: ({ loaderData }) => {
+    const featured = loaderData?.placements.find(
+      (placement) => placement.slot_code === "home_featured_episode",
+    );
+    const image = getPublicAssetUrl(featured?.primary_media_public_url_path);
+    return {
+      meta: [
+        { title: "Tha Fix — We Lived It. Now We Talk It." },
+        {
+          name: "description",
+          content:
+            "A premium streaming media network. Real conversations on culture, community, sports, politics, and transformation.",
+        },
+        { property: "og:title", content: "Tha Fix Media Network" },
+        {
+          property: "og:description",
+          content: "Stream episodes, meet the hosts, join the community.",
+        },
+        ...(image ? [{ property: "og:image", content: image }] : []),
+        ...(image ? [{ name: "twitter:image", content: image }] : []),
+      ],
+    };
+  },
   component: Index,
 });
 
 function Index() {
-  const fullEpisodes = episodes.filter((e) => e.kind === "full");
-  const quickFix = episodes.filter((e) => e.kind === "quick");
-  const featured = fullEpisodes[0] ?? episodes[0];
+  const { placements, hosts, watchFeed, loadError } = Route.useLoaderData();
+  const featured = placements.find(
+    (placement) => placement.slot_code === "home_featured_episode",
+  );
+  const latestClips = placements
+    .filter((placement) => placement.slot_code === "home_latest_clips")
+    .sort((a, b) => a.placement_position - b.placement_position);
+  const fullEpisodes = watchFeed.filter((content) => content.format_code === "episode");
+  const heroImage = getPublicAssetUrl(featured?.primary_media_public_url_path);
+
   return (
     <>
-      {/* HERO */}
-      <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-        <div className="absolute inset-0 animate-ken-burns">
-          <img
-            src={heroImg}
-            alt={featured.title}
-            className="w-full h-full object-cover"
-            width={1920}
-            height={1080}
-          />
-        </div>
+      <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[#1A1A1A]">
+        {heroImage && featured ? (
+          <div className="absolute inset-0 animate-ken-burns">
+            <img
+              src={heroImage}
+              alt={featured.primary_media_alt_text || featured.title}
+              className="w-full h-full object-cover"
+              width={1920}
+              height={1080}
+            />
+          </div>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#552583] via-[#28153b] to-[#1A1A1A]" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-transparent" />
 
@@ -42,41 +91,56 @@ function Index() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-5">
               <span className="bg-brand text-brand-foreground text-[10px] font-black uppercase px-2 py-1 tracking-wider">
-                Latest Episode
+                Featured Conversation
               </span>
-              <span className="text-foreground/60 text-xs font-semibold uppercase tracking-widest">
-                Season {featured.season} · Episode {featured.number} · {featured.duration}
-              </span>
+              {featured && (
+                <span className="text-foreground/60 text-xs font-semibold uppercase tracking-widest">
+                  {featured.format_code === "episode" ? "Full Episode" : "Clip"} · {formatDuration(featured.duration_seconds)}
+                </span>
+              )}
             </div>
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-black leading-[0.85] tracking-tighter text-balance mb-6">
-              {featured.title}
+              {featured?.title || "Real conversations shaped by real experience."}
             </h1>
             <p className="text-base md:text-lg text-foreground/75 max-w-xl leading-relaxed mb-8">
-              {featured.description}
+              {featured?.description ||
+                "Tha Fix brings lived experience, accountability, culture, and community to the same table."}
             </p>
-            <div className="flex flex-wrap items-center gap-3">
+            {featured ? (
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  to="/watch/$slug"
+                  params={{ slug: featured.slug }}
+                  className="inline-flex items-center gap-2.5 bg-brand text-brand-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors"
+                >
+                  <Play className="w-4 h-4 fill-current" /> Watch Episode
+                </Link>
+                <Link
+                  to="/watch/$slug"
+                  params={{ slug: featured.slug }}
+                  className="inline-flex items-center gap-2.5 bg-foreground/10 backdrop-blur-md border border-foreground/20 px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-foreground/20 transition-colors"
+                >
+                  <Info className="w-4 h-4" /> Episode Info
+                </Link>
+              </div>
+            ) : (
               <Link
-                to="/watch/$slug"
-                params={{ slug: featured.slug }}
-                className="inline-flex items-center gap-2.5 bg-brand text-brand-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors"
+                to="/watch"
+                className="inline-flex items-center gap-2.5 bg-brand text-brand-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm"
               >
-                <Play className="w-4 h-4 fill-current" />
-                Watch Episode
+                Browse Conversations
               </Link>
-              <Link
-                to="/watch/$slug"
-                params={{ slug: featured.slug }}
-                className="inline-flex items-center gap-2.5 bg-foreground/10 backdrop-blur-md border border-foreground/20 px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-foreground/20 transition-colors"
-              >
-                <Info className="w-4 h-4" />
-                Episode Info
-              </Link>
-            </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* MISSION STRIP */}
+      {loadError && (
+        <div className="border-b border-border bg-surface px-6 py-4 text-center text-sm text-muted-foreground" role="status">
+          Some featured content could not be loaded. Visit the Watch page to try again.
+        </div>
+      )}
+
       <section className="border-y border-border bg-[#F7F8FA]">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-display text-2xl md:text-3xl font-bold tracking-tight italic">
@@ -91,47 +155,80 @@ function Index() {
         </div>
       </section>
 
-      <ContentRail eyebrow="Full Episodes" title="Real Conversations. Unfiltered Perspectives." episodes={fullEpisodes} size="md" />
+      <ContentRail
+        eyebrow="Full Episodes"
+        title="Real Conversations. Unfiltered Perspectives."
+        episodes={fullEpisodes}
+        size="md"
+      />
 
-      <ContentRail eyebrow="Quick Fix" title="The Best Moments in 90 Seconds or Less." episodes={quickFix} size="md" />
+      <ContentRail
+        eyebrow="Clips & Highlights"
+        title="The moments that keep the conversation moving."
+        episodes={latestClips}
+        size="md"
+      />
 
-      {/* HOST SPOTLIGHT */}
-      <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-2">The Hosts</div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">
-                The voices behind every episode
-              </h2>
-            </div>
-            <Link to="/hosts" className="hidden md:inline-flex text-xs font-bold uppercase tracking-widest border-b border-brand text-brand pb-1">
-              Meet The Team
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
-            {hosts.map((h) => (
-              <Link key={h.slug} to="/hosts" className="group relative overflow-hidden bg-background border border-border">
-                <div className="aspect-[5/4] overflow-hidden">
-                  <img src={h.image} alt={h.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      {hosts.length > 0 && (
+        <section className="py-20 lg:py-28 bg-[#F7F8FA] border-y border-border">
+          <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-2">
+                  The Hosts
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-7">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand mb-2">{h.role}</div>
-                  <h3 className="font-display text-4xl font-black tracking-tighter mb-3">{h.name}</h3>
-                  <p className="text-sm text-foreground/70 max-w-md">
-                    {h.slug === "marcus-davis"
-                      ? "After rebuilding his life following incarceration, Marcus transformed his journey into one of purpose, leadership, and service. (click image for full bio)"
-                      : "A Louisville native and Ballard High School graduate, Jon is known for being genuine, loyal, and unapologetically straightforward. (click image for full bio)"}
-                  </p>
-                </div>
+                <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">
+                  The voices behind every episode
+                </h2>
+              </div>
+              <Link
+                to="/hosts"
+                className="hidden md:inline-flex text-xs font-bold uppercase tracking-widest border-b border-brand text-brand pb-1"
+              >
+                Meet The Team
               </Link>
-            ))}
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+              {hosts.map((host) => {
+                const image = getPublicAssetUrl(host.profile_media_public_url_path);
+                const summary = (host.biography || "").split("\n\n")[0];
+                return (
+                  <Link
+                    key={host.organization_person_public_id}
+                    to="/hosts/$slug"
+                    params={{ slug: host.slug }}
+                    className="group relative overflow-hidden bg-background border border-border"
+                  >
+                    <div className="aspect-[5/4] overflow-hidden">
+                      {image && (
+                        <img
+                          src={image}
+                          alt={host.profile_media_alt_text || host.display_name}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-7">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand mb-2">
+                        {host.headline || "Tha Fix Host"}
+                      </div>
+                      <h3 className="font-display text-4xl font-black tracking-tighter mb-3">
+                        {host.display_name}
+                      </h3>
+                      <p className="text-sm text-foreground/70 max-w-md line-clamp-3">
+                        {summary}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* MEMBERSHIP PROMO */}
       <section className="relative py-24 lg:py-32 bg-brand text-brand-foreground overflow-hidden">
         <div className="absolute -top-20 -right-20 size-[500px] rounded-full bg-foreground/5" />
         <div className="absolute -bottom-32 -left-20 size-[400px] rounded-full bg-foreground/5" />
@@ -155,26 +252,25 @@ function Index() {
             </div>
           </div>
           <div className="grid gap-4">
-            {memberships.map((m) => (
+            {memberships.map((membership) => (
               <div
-                key={m.name}
-                className={`p-6 border ${m.featured ? "bg-background text-foreground border-background" : "border-brand-foreground/20"}`}
+                key={membership.name}
+                className={`p-6 border ${membership.featured ? "bg-background text-foreground border-background" : "border-brand-foreground/20"}`}
               >
                 <div className="flex items-baseline justify-between gap-4 mb-2">
-                  <h3 className="font-display text-2xl font-black">{m.name}</h3>
+                  <h3 className="font-display text-2xl font-black">{membership.name}</h3>
                   <div className="font-display text-3xl font-black">
-                    ${m.price}
-                    <span className={`text-xs font-medium ${m.featured ? "text-muted-foreground" : "opacity-60"}`}>{m.period}</span>
+                    ${membership.price}
+                    <span className={`text-xs font-medium ${membership.featured ? "text-muted-foreground" : "opacity-60"}`}>{membership.period}</span>
                   </div>
                 </div>
-                <p className={`text-sm ${m.featured ? "text-muted-foreground" : "opacity-70"}`}>{m.tagline}</p>
+                <p className={`text-sm ${membership.featured ? "text-muted-foreground" : "opacity-70"}`}>{membership.tagline}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* MERCH */}
       <section className="py-20 lg:py-28">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
           <div className="flex items-end justify-between mb-12">
@@ -187,17 +283,17 @@ function Index() {
             </Link>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {products.map((p) => (
-              <Link to="/shop" key={p.slug} className="group">
+            {products.map((product) => (
+              <Link to="/shop" key={product.slug} className="group">
                 <div className="aspect-[4/5] overflow-hidden bg-surface border border-border mb-4">
-                  <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <img src={product.image} alt={product.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="flex justify-between gap-3">
                   <div>
-                    <h3 className="text-sm font-bold uppercase tracking-wider group-hover:text-accent transition-colors">{p.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{p.category}</p>
+                    <h3 className="text-sm font-bold uppercase tracking-wider group-hover:text-accent transition-colors">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{product.category}</p>
                   </div>
-                  <span className="font-display font-black text-brand">${p.price}</span>
+                  <span className="font-display font-black text-brand">${product.price}</span>
                 </div>
               </Link>
             ))}
@@ -205,28 +301,26 @@ function Index() {
         </div>
       </section>
 
-      {/* COMMUNITY + EVENTS */}
       <section className="py-20 bg-[#F7F8FA] border-y border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-6">
           {[
-            { icon: Users, eyebrow: "Community", title: "Private Discord", body: "10k+ members trading game, sharing wins, holding each other accountable.", cta: "Join Community", to: "/community" as const },
-            { icon: Calendar, eyebrow: "Live Events", title: "Summer Tour 2026", body: "Six cities. Live shows, town halls, and member meetups across the country.", cta: "See Events", to: "/events" as const },
+            { icon: Users, eyebrow: "Community", title: "Private Community", body: "Connect with members who value honest conversation, accountability, and growth.", cta: "Join Community", to: "/community" as const },
+            { icon: Calendar, eyebrow: "Live Events", title: "Tha Fix Live", body: "Live recordings, member meetups, community appearances, and Tha Fix on location.", cta: "See Events", to: "/events" as const },
             { icon: Headphones, eyebrow: "Sponsors", title: "Partner With Us", body: "Reach an engaged audience that trusts our voice. Talk to our partnerships team.", cta: "Become a Sponsor", to: "/sponsors" as const },
-          ].map((b) => (
-            <Link key={b.title} to={b.to} className="p-8 border border-border bg-background hover:border-accent transition-colors group">
-              <b.icon className="w-7 h-7 text-brand mb-6" />
-              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">{b.eyebrow}</div>
-              <h3 className="font-display text-2xl font-bold mb-3">{b.title}</h3>
-              <p className="text-sm text-muted-foreground mb-6">{b.body}</p>
+          ].map((block) => (
+            <Link key={block.title} to={block.to} className="p-8 border border-border bg-background hover:border-accent transition-colors group">
+              <block.icon className="w-7 h-7 text-brand mb-6" />
+              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">{block.eyebrow}</div>
+              <h3 className="font-display text-2xl font-bold mb-3">{block.title}</h3>
+              <p className="text-sm text-muted-foreground mb-6">{block.body}</p>
               <span className="text-xs font-bold uppercase tracking-widest text-brand inline-flex items-center gap-1.5 group-hover:gap-3 transition-all">
-                {b.cta} <ArrowRight className="w-3.5 h-3.5" />
+                {block.cta} <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* SPONSORS STRIP */}
       <section className="py-16 border-b border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 text-center">
           <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">
@@ -247,7 +341,6 @@ function Index() {
         </div>
       </section>
 
-      {/* NEWSLETTER */}
       <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <div className="text-brand text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Sunday Dispatch</div>
@@ -257,7 +350,7 @@ function Index() {
           <p className="text-muted-foreground mb-10">
             New episodes, host notes, and exclusive thoughts you won't hear on the show.
           </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" onSubmit={(event) => event.preventDefault()}>
             <input
               type="email"
               required
