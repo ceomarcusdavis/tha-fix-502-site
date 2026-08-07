@@ -7,8 +7,9 @@ import {
   Users,
   Headphones,
 } from "lucide-react";
-import { products, memberships } from "@/data/content";
+import { products } from "@/data/content";
 import { ContentRail } from "@/components/content-rail";
+import { getPublicMembershipPlans } from "@/lib/account";
 import {
   formatDuration,
   getHomepagePlacements,
@@ -20,15 +21,16 @@ import {
 export const Route = createFileRoute("/")({
   loader: async () => {
     try {
-      const [placements, hosts, watchFeed] = await Promise.all([
+      const [placements, hosts, watchFeed, membershipPlans] = await Promise.all([
         getHomepagePlacements(),
         getPersonPlacements(["hosts_primary"]),
         getWatchFeed({ limit: 100 }),
+        getPublicMembershipPlans(),
       ]);
-      return { placements, hosts, watchFeed, loadError: false };
+      return { placements, hosts, watchFeed, membershipPlans, loadError: false };
     } catch (error) {
       console.error("Homepage public content failed to load", error);
-      return { placements: [], hosts: [], watchFeed: [], loadError: true };
+      return { placements: [], hosts: [], watchFeed: [], membershipPlans: [], loadError: true };
     }
   },
   head: ({ loaderData }) => {
@@ -58,7 +60,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { placements, hosts, watchFeed, loadError } = Route.useLoaderData();
+  const { placements, hosts, watchFeed, membershipPlans, loadError } = Route.useLoaderData();
   const featured = placements.find(
     (placement) => placement.slot_code === "home_featured_episode",
   );
@@ -252,21 +254,32 @@ function Index() {
             </div>
           </div>
           <div className="grid gap-4">
-            {memberships.map((membership) => (
-              <div
-                key={membership.name}
-                className={`p-6 border ${membership.featured ? "bg-background text-foreground border-background" : "border-brand-foreground/20"}`}
-              >
-                <div className="flex items-baseline justify-between gap-4 mb-2">
-                  <h3 className="font-display text-2xl font-black">{membership.name}</h3>
-                  <div className="font-display text-3xl font-black">
-                    ${membership.price}
-                    <span className={`text-xs font-medium ${membership.featured ? "text-muted-foreground" : "opacity-60"}`}>{membership.period}</span>
+            {membershipPlans.map((membership) => {
+              const featuredPlan = membership.plan_code === "network";
+              const price = new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: membership.currency.toUpperCase(),
+                maximumFractionDigits: 0,
+              }).format(membership.current_amount_cents / 100);
+              const period = membership.billing_interval === "month" ? "/mo" : " one-time";
+              return (
+                <div
+                  key={membership.plan_public_id}
+                  className={`p-6 border ${featuredPlan ? "bg-background text-foreground border-background" : "border-brand-foreground/20"}`}
+                >
+                  <div className="flex items-baseline justify-between gap-4 mb-2">
+                    <h3 className="font-display text-2xl font-black">{membership.plan_name}</h3>
+                    <div className="font-display text-3xl font-black">
+                      {price}
+                      <span className={`text-xs font-medium ${featuredPlan ? "text-muted-foreground" : "opacity-60"}`}>{period}</span>
+                    </div>
                   </div>
+                  <p className={`text-sm ${featuredPlan ? "text-muted-foreground" : "opacity-70"}`}>
+                    {membership.description}
+                  </p>
                 </div>
-                <p className={`text-sm ${membership.featured ? "text-muted-foreground" : "opacity-70"}`}>{membership.tagline}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
