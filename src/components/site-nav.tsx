@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Play } from "lucide-react";
+import { Menu, X, Play, UserRound } from "lucide-react";
+import { getSession } from "@/lib/account";
 
 const links = [
   { to: "/watch", label: "Watch" },
@@ -16,12 +17,29 @@ const links = [
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    const syncAuth = async () => {
+      const session = await getSession();
+      if (active) setSignedIn(Boolean(session));
+    };
+    void syncAuth();
+    window.addEventListener("tha-fix-auth-change", syncAuth);
+    window.addEventListener("storage", syncAuth);
+    return () => {
+      active = false;
+      window.removeEventListener("tha-fix-auth-change", syncAuth);
+      window.removeEventListener("storage", syncAuth);
+    };
   }, []);
 
   return (
@@ -59,6 +77,13 @@ export function SiteNav() {
             Support Tha Fix
           </Link>
           <Link
+            to={signedIn ? "/account" : "/login"}
+            className="hidden sm:inline-flex items-center gap-1.5 text-[11px] md:text-xs font-bold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
+          >
+            <UserRound className="w-4 h-4" />
+            {signedIn ? "Account" : "Sign In"}
+          </Link>
+          <Link
             to="/memberships"
             className="inline-flex items-center gap-2 bg-[#FDB927] text-white px-4 py-2 rounded-sm text-[11px] md:text-xs font-bold uppercase tracking-widest hover:bg-[#E5A623] transition-colors"
           >
@@ -93,9 +118,16 @@ export function SiteNav() {
             <Link
               to="/support"
               onClick={() => setOpen(false)}
-              className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
+              className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927] border-b border-white/10"
             >
               Support Tha Fix
+            </Link>
+            <Link
+              to={signedIn ? "/account" : "/login"}
+              onClick={() => setOpen(false)}
+              className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
+            >
+              {signedIn ? "My Account" : "Sign In"}
             </Link>
           </nav>
         </div>
