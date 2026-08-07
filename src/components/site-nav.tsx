@@ -5,6 +5,7 @@ import { Menu, X, Play } from "lucide-react";
 const links = [
   { to: "/watch", label: "Watch" },
   { to: "/hosts", label: "Hosts" },
+  { to: "/guests", label: "Guests" },
   { to: "/memberships", label: "Memberships" },
   { to: "/shop", label: "Shop" },
   { to: "/community", label: "Community" },
@@ -31,17 +32,21 @@ export function SiteNav() {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src="/images/thafix-logo-horizontal.png" alt="Tha Fix — We lived it. Now we talk it." className="h-9 md:h-11 w-auto" />
+          <img
+            src="/images/thafix-logo-horizontal.png"
+            alt="Tha Fix — We lived it. Now we talk it."
+            className="h-9 md:h-11 w-auto"
+          />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-wide uppercase text-white/80">
-          {links.map((l) => (
+        <nav className="hidden xl:flex items-center gap-6 text-[12px] font-medium tracking-wide uppercase text-white/80">
+          {links.map((link) => (
             <Link
-              key={l.to}
-              to={l.to}
+              key={link.to}
+              to={link.to}
               className="hover:text-[#FDB927] transition-colors data-[status=active]:text-[#FDB927] data-[status=active]:underline data-[status=active]:decoration-[#FDB927] data-[status=active]:decoration-2 data-[status=active]:underline-offset-4"
             >
-              {l.label}
+              {link.label}
             </Link>
           ))}
         </nav>
@@ -61,9 +66,11 @@ export function SiteNav() {
             Join
           </Link>
           <button
-            onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-white"
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            className="xl:hidden text-white"
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -71,16 +78,16 @@ export function SiteNav() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-white/10 bg-[#1A1A1A]">
+        <div className="xl:hidden border-t border-white/10 bg-[#1A1A1A]">
           <nav className="flex flex-col px-6 py-4 gap-1">
-            {links.map((l) => (
+            {links.map((link) => (
               <Link
-                key={l.to}
-                to={l.to}
+                key={link.to}
+                to={link.to}
                 onClick={() => setOpen(false)}
                 className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927] border-b border-white/10"
               >
-                {l.label}
+                {link.label}
               </Link>
             ))}
             <Link
