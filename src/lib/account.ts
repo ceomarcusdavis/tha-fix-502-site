@@ -198,7 +198,7 @@ export async function sendPasswordReset(email: string) {
       apikey: SUPABASE_PUBLISHABLE_KEY,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: email.trim().toLowerCase(), redirect_to: redirectTo }),
+    body: JSON.stringify({ email: email.trim().toLowerCase(), password: undefined, redirect_to: redirectTo }),
   });
   if (!response.ok) return parseError(response, "We couldn’t send a password-reset email.");
 }
@@ -338,6 +338,13 @@ export async function getMyMembership(): Promise<MyMembership | null> {
     requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
   });
   return rows[0] ?? null;
+}
+
+export async function hasMyMembershipEntitlement(entitlementCode: string): Promise<boolean> {
+  return authenticatedRpc<boolean>("has_my_membership_entitlement", {
+    requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
+    requested_entitlement_code: entitlementCode,
+  });
 }
 
 export async function createMembershipCheckout(planPublicId: string): Promise<MembershipCheckoutResult> {
