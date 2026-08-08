@@ -84,7 +84,7 @@ function SupportPage() {
               <CheckCircle2 className="w-6 h-6 text-brand shrink-0 mt-0.5" />
               <div>
                 <h2 className="font-display text-2xl font-bold mb-1">Thank you for supporting Tha Fix.</h2>
-                <p className="text-sm text-muted-foreground">Stripe has confirmed the checkout. If you selected monthly support, future charges continue automatically until canceled through Stripe.</p>
+                <p className="text-sm text-muted-foreground">You returned to Tha Fix after Stripe Checkout. Payment and recurring-support records are finalized only after Stripe confirms them through our secure payment webhook.</p>
                 <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs font-bold uppercase tracking-widest text-brand underline underline-offset-4">
                   Manage Recurring Support
                 </a>
