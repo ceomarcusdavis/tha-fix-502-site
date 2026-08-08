@@ -15,6 +15,8 @@ export const Route = createFileRoute("/watch/member/$slug")({
   component: MemberContentPage,
 });
 
+const accessButtonClass = "inline-flex items-center justify-center bg-brand text-brand-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors";
+
 function MemberContentPage() {
   const { slug } = Route.useParams();
   const access = useMembershipAccess();
@@ -143,7 +145,7 @@ function AccessMessage({ title, body, action, to }: { title: string; body: strin
         <LockKeyhole className="w-9 h-9 text-brand mx-auto mb-5" />
         <h1 className="font-display text-3xl font-bold mb-3">{title}</h1>
         <p className="text-muted-foreground mb-7">{body}</p>
-        <Link to={to} className="cta">{action}</Link>
+        <Link to={to} className={accessButtonClass}>{action}</Link>
       </div>
     </div>
   );
