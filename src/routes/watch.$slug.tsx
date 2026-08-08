@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Calendar, Clock, ExternalLink } from "lucide-react";
 import { EpisodeCard } from "@/components/episode-card";
+import { useMembershipAccess } from "@/hooks/use-membership-access";
+import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 import {
   formatDuration,
   formatPublishedDate,
@@ -136,6 +138,13 @@ function CreditList({ credits }: { credits: PublicContentCredit[] }) {
 
 function ContentPage() {
   const { content, related } = Route.useLoaderData();
+  const access = useMembershipAccess();
+  const hasMemberWatchAccess =
+    access.has(MEMBERSHIP_ENTITLEMENTS.earlyAccess) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.bonusClips) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.afterHours) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.behindTheScenes) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.documentaryContent);
   const image = getPublicAssetUrl(content.primary_media_public_url_path);
   const category =
     content.primary_topic_name ||
@@ -243,20 +252,22 @@ function ContentPage() {
               <CreditList credits={content.credits} />
             </div>
             <Link
-              to="/memberships"
+              to={hasMemberWatchAccess ? "/watch/member" : "/memberships"}
               className="block bg-brand text-brand-foreground p-6 hover:bg-[#6A33A5] transition-colors"
             >
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-70 mb-2">
-                Members Get More
+                {hasMemberWatchAccess ? "Your Membership" : "Members Get More"}
               </div>
               <h3 className="font-display text-2xl font-bold mb-3">
-                Go beyond the public conversation
+                {hasMemberWatchAccess ? "More is waiting in Member Watch" : "Go beyond the public conversation"}
               </h3>
               <p className="text-sm opacity-80 mb-4">
-                Early access, bonus clips, behind-the-scenes content, and member discussions.
+                {hasMemberWatchAccess
+                  ? "Open the early releases and exclusive video content currently included with your membership."
+                  : "Early access, bonus clips, behind-the-scenes content, and member discussions."}
               </p>
               <span className="text-xs font-bold uppercase tracking-widest border-b border-current pb-0.5">
-                Become a Member →
+                {hasMemberWatchAccess ? "Open Member Library →" : access.isSignedIn ? "Unlock Member Content →" : "Become a Member →"}
               </span>
             </Link>
           </aside>
