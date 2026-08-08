@@ -5,6 +5,8 @@ import { PageHero } from "@/components/page-hero";
 import { memberships, products } from "@/data/content";
 import { createSupportCheckout, type SupportCadence } from "@/lib/support";
 
+const STRIPE_BILLING_PORTAL_URL = "https://billing.stripe.com/p/login/eVq00c8wy671edA7rn53O00";
+
 export const Route = createFileRoute("/support")({
   validateSearch: (search: Record<string, unknown>) => ({
     support: typeof search.support === "string" ? search.support : "",
@@ -83,6 +85,9 @@ function SupportPage() {
               <div>
                 <h2 className="font-display text-2xl font-bold mb-1">Thank you for supporting Tha Fix.</h2>
                 <p className="text-sm text-muted-foreground">Stripe has confirmed the checkout. If you selected monthly support, future charges continue automatically until canceled through Stripe.</p>
+                <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs font-bold uppercase tracking-widest text-brand underline underline-offset-4">
+                  Manage Recurring Support
+                </a>
               </div>
             </div>
           ) : null}
@@ -110,6 +115,9 @@ function SupportPage() {
                   <div className="text-sm text-muted-foreground mt-1">Automatically renews monthly until canceled.</div>
                 </button>
               </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                Already giving monthly? <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline">Manage recurring support through Stripe.</a>
+              </p>
             </div>
 
             <div>
