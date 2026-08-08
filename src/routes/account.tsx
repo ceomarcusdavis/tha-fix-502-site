@@ -12,6 +12,7 @@ import {
   updateMyProfile,
 } from "@/lib/account";
 import { PageHero } from "@/components/page-hero";
+import { buildMembershipAccess, MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 
 export const Route = createFileRoute("/account")({
   head: () => ({ meta: [{ title: "My Account — Tha Fix" }] }),
@@ -114,6 +115,14 @@ function AccountPage() {
 
   const periodEnd = formatDate(membership?.current_period_end || membership?.access_ends_at || null);
   const isRecurringMembership = membership?.plan_code === "audience" || membership?.plan_code === "network";
+  const access = buildMembershipAccess(membership);
+  const hasMemberWatch =
+    access.has(MEMBERSHIP_ENTITLEMENTS.earlyAccess) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.bonusClips) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.afterHours) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.behindTheScenes) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.documentaryContent);
+  const hasMemberCommunity = access.has(MEMBERSHIP_ENTITLEMENTS.memberDiscussions);
 
   return (
     <>
@@ -189,6 +198,21 @@ function AccountPage() {
                         <p className="font-semibold">{periodEnd ? `${membership.renewal_status === "cancel_at_period_end" ? "Access through" : "Through"} ${periodEnd}` : "Continuing access subject to membership terms"}</p>
                       </div>
                     </div>
+
+                    {access.hasActiveAccess && (hasMemberWatch || hasMemberCommunity) ? (
+                      <div className="mb-5 border border-border bg-surface p-5">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand mb-3">Your Member Areas</div>
+                        <div className="flex flex-wrap gap-3">
+                          {hasMemberWatch ? (
+                            <Link to="/watch/member" className="bg-brand text-brand-foreground px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">Open Member Watch</Link>
+                          ) : null}
+                          {hasMemberCommunity ? (
+                            <Link to="/community/member" className="border border-brand text-brand bg-background px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-brand/5">Open Member Community</Link>
+                          ) : null}
+                        </div>
+                      </div>
+                    ) : null}
+
                     <div className="flex flex-wrap gap-3">
                       {isRecurringMembership && (
                         <button type="button" onClick={manageBilling} disabled={billingBusy} className="bg-brand text-brand-foreground px-5 py-3 text-xs font-bold uppercase tracking-widest disabled:opacity-60">
