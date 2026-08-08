@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Play, UserRound } from "lucide-react";
-import { getSession } from "@/lib/account";
+import { useMembershipAccess } from "@/hooks/use-membership-access";
+import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 
 const links = [
   { to: "/watch", label: "Watch" },
@@ -17,29 +18,21 @@ const links = [
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
+  const access = useMembershipAccess();
+
+  const hasMemberWatchAccess =
+    access.has(MEMBERSHIP_ENTITLEMENTS.earlyAccess) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.bonusClips) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.afterHours) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.behindTheScenes) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.documentaryContent);
+  const hasMemberCommunityAccess = access.has(MEMBERSHIP_ENTITLEMENTS.memberDiscussions);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-    const syncAuth = async () => {
-      const session = await getSession();
-      if (active) setSignedIn(Boolean(session));
-    };
-    void syncAuth();
-    window.addEventListener("tha-fix-auth-change", syncAuth);
-    window.addEventListener("storage", syncAuth);
-    return () => {
-      active = false;
-      window.removeEventListener("tha-fix-auth-change", syncAuth);
-      window.removeEventListener("storage", syncAuth);
-    };
   }, []);
 
   return (
@@ -70,6 +63,22 @@ export function SiteNav() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {hasMemberWatchAccess && (
+            <Link
+              to="/watch/member"
+              className="hidden 2xl:inline-flex text-[11px] font-bold uppercase tracking-widest text-[#FDB927] hover:text-white transition-colors"
+            >
+              Member Watch
+            </Link>
+          )}
+          {hasMemberCommunityAccess && (
+            <Link
+              to="/community/member"
+              className="hidden 2xl:inline-flex text-[11px] font-bold uppercase tracking-widest text-[#FDB927] hover:text-white transition-colors"
+            >
+              Member Community
+            </Link>
+          )}
           <Link
             to="/support"
             className="hidden md:inline-flex text-[12px] font-semibold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
@@ -77,11 +86,11 @@ export function SiteNav() {
             Support Tha Fix
           </Link>
           <Link
-            to={signedIn ? "/account" : "/login"}
+            to={access.isSignedIn ? "/account" : "/login"}
             className="hidden sm:inline-flex items-center gap-1.5 text-[11px] md:text-xs font-bold uppercase tracking-widest text-white/80 hover:text-[#FDB927] transition-colors"
           >
             <UserRound className="w-4 h-4" />
-            {signedIn ? "Account" : "Sign In"}
+            {access.isSignedIn ? "Account" : "Sign In"}
           </Link>
           <Link
             to="/memberships"
@@ -115,6 +124,24 @@ export function SiteNav() {
                 {link.label}
               </Link>
             ))}
+            {hasMemberWatchAccess && (
+              <Link
+                to="/watch/member"
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm font-bold uppercase tracking-wider text-[#FDB927] hover:text-white border-b border-white/10"
+              >
+                Member Watch
+              </Link>
+            )}
+            {hasMemberCommunityAccess && (
+              <Link
+                to="/community/member"
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm font-bold uppercase tracking-wider text-[#FDB927] hover:text-white border-b border-white/10"
+              >
+                Member Community
+              </Link>
+            )}
             <Link
               to="/support"
               onClick={() => setOpen(false)}
@@ -123,11 +150,11 @@ export function SiteNav() {
               Support Tha Fix
             </Link>
             <Link
-              to={signedIn ? "/account" : "/login"}
+              to={access.isSignedIn ? "/account" : "/login"}
               onClick={() => setOpen(false)}
               className="py-3 text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#FDB927]"
             >
-              {signedIn ? "My Account" : "Sign In"}
+              {access.isSignedIn ? "My Account" : "Sign In"}
             </Link>
           </nav>
         </div>

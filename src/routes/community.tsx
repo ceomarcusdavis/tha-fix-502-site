@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Lightbulb, Users, Radio, PenLine, Sparkles, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { memberships, products } from "@/data/content";
+import { useMembershipAccess } from "@/hooks/use-membership-access";
+import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 import {
   Accordion,
   AccordionContent,
@@ -101,8 +103,8 @@ const faqs = [
     a: "Audience and Network memberships continue through the end of the paid billing period unless access ends for another reason. After membership ends, members lose access to members-only features and can no longer create new comments or posts.",
   },
   {
-    q: "Where will the private community be hosted?",
-    a: "Eligible members will receive access instructions through their Tha Fix account and registered email address.",
+    q: "Where is the private community hosted?",
+    a: "The private community is hosted inside the Tha Fix Member Community hub. Network and Founder members receive access automatically while their eligible membership access remains active.",
   },
 ];
 
@@ -126,6 +128,10 @@ const privateNetworkBenefits = [
 ];
 
 function CommunityPage() {
+  const access = useMembershipAccess();
+  const hasCommunityFeed = access.has(MEMBERSHIP_ENTITLEMENTS.memberDiscussions);
+  const hasPrivateNetwork = access.has(MEMBERSHIP_ENTITLEMENTS.privateCommunity);
+
   return (
     <>
       <PageHero eyebrow="Community" title="Your Voice Belongs Here." description="Connect with the hosts and members who make Tha Fix more than a show." />
@@ -139,20 +145,20 @@ function CommunityPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              to="/memberships"
+              to={hasCommunityFeed ? "/community/member" : "/memberships"}
               className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#6A33A5] transition-colors"
             >
-              Join the Community
+              {hasCommunityFeed ? "Enter Member Community" : "Join the Community"}
             </Link>
             <Link
-              to="/contact"
+              to={access.isSignedIn ? "/account" : "/login"}
               className="inline-flex items-center gap-2 border border-border bg-surface px-7 py-3.5 font-bold uppercase tracking-wider text-sm hover:border-accent transition-colors"
             >
-              Already a Member? Sign In
+              {access.isSignedIn ? "My Account" : "Member Sign In"}
             </Link>
           </div>
           <p className="text-xs text-muted-foreground mt-4">
-            Memberships start at $7/month. Must be 18 or older.
+            {hasCommunityFeed ? `Your ${access.membership?.plan_name ?? "Tha Fix"} membership includes Community Feed access.` : "Memberships start at $7/month. Must be 18 or older."}
           </p>
         </div>
       </section>
@@ -208,10 +214,10 @@ function CommunityPage() {
                 ))}
               </ul>
               <Link
-                to="/memberships"
+                to={hasCommunityFeed ? "/community/member" : "/memberships"}
                 className="block text-center w-full py-4 text-xs font-bold uppercase tracking-widest bg-brand text-brand-foreground hover:bg-[#6A33A5] transition-colors"
               >
-                Join The Audience — $7/Month
+                {hasCommunityFeed ? "Open Community Feed" : "Join The Audience — $7/Month"}
               </Link>
             </div>
 
@@ -232,10 +238,10 @@ function CommunityPage() {
                 ))}
               </ul>
               <Link
-                to="/memberships"
+                to={hasPrivateNetwork ? "/community/member" : "/memberships"}
                 className="block text-center w-full py-4 text-xs font-bold uppercase tracking-widest bg-accent text-accent-foreground hover:brightness-110 transition-all"
               >
-                Join The Network — $19/Month
+                {hasPrivateNetwork ? "Open Private Network" : hasCommunityFeed ? "Upgrade for Private Network" : "Join The Network — $19/Month"}
               </Link>
             </div>
           </div>
@@ -356,8 +362,8 @@ function CommunityPage() {
               <Link to="/memberships" className="bg-white text-brand px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-gray-100 transition-colors">
                 See Membership Plans
               </Link>
-              <Link to="/community" className="border border-brand-foreground/30 px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-brand-foreground/10 transition-colors">
-                Explore Community
+              <Link to={hasCommunityFeed ? "/community/member" : "/community"} className="border border-brand-foreground/30 px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-brand-foreground/10 transition-colors">
+                {hasCommunityFeed ? "Enter Member Community" : "Explore Community"}
               </Link>
             </div>
           </div>

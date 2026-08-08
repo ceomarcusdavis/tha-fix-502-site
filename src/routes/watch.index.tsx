@@ -1,10 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
-import { Search, X } from "lucide-react";
+import { LockKeyhole, Search, X } from "lucide-react";
 import { ContentRail } from "@/components/content-rail";
 import { EpisodeCard } from "@/components/episode-card";
 import { PageHero } from "@/components/page-hero";
+import { useMembershipAccess } from "@/hooks/use-membership-access";
+import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 import { getContentPlacements, getWatchFeed } from "@/lib/public-content";
 
 export const Route = createFileRoute("/watch/")({
@@ -30,10 +32,18 @@ export const Route = createFileRoute("/watch/")({
 type FormatFilter = "all" | "episode" | "clip";
 
 function WatchPage() {
+  const access = useMembershipAccess();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [format, setFormat] = useState<FormatFilter>("all");
   const [topic, setTopic] = useState("all");
+
+  const hasMemberWatchAccess =
+    access.has(MEMBERSHIP_ENTITLEMENTS.earlyAccess) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.bonusClips) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.afterHours) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.behindTheScenes) ||
+    access.has(MEMBERSHIP_ENTITLEMENTS.documentaryContent);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebouncedQuery(query.trim()), 400);
@@ -96,6 +106,45 @@ function WatchPage() {
         title="Every conversation. Every episode."
         description="The full archive of Tha Fix. Filter by topic, search by guest, or just hit play."
       />
+
+      <section className="border-b border-border bg-surface">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div className="flex items-start gap-4 max-w-3xl">
+            <div className="size-10 shrink-0 grid place-items-center bg-brand/10 text-brand">
+              <LockKeyhole className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand mb-1">Member Library</div>
+              <h2 className="font-display text-xl font-bold mb-1">
+                {hasMemberWatchAccess ? "Your members-only content is ready." : "Members get more than the public archive."}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Early access, bonus clips, After Hours, behind-the-scenes content, and eligible Founder exclusives appear in the Member Watch Library based on your membership benefits.
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0 flex flex-wrap gap-3">
+            {hasMemberWatchAccess ? (
+              <Link to="/watch/member" className="bg-brand text-brand-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">
+                Open Member Library
+              </Link>
+            ) : access.isSignedIn ? (
+              <Link to="/memberships" className="bg-brand text-brand-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">
+                Unlock Member Content
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className="border border-border bg-background px-6 py-3 text-xs font-bold uppercase tracking-widest hover:border-brand transition-colors">
+                  Member Sign In
+                </Link>
+                <Link to="/memberships" className="bg-brand text-brand-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors">
+                  View Memberships
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
 
       {featured.length > 0 && (
         <ContentRail

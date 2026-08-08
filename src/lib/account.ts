@@ -340,6 +340,13 @@ export async function getMyMembership(): Promise<MyMembership | null> {
   return rows[0] ?? null;
 }
 
+export async function hasMyMembershipEntitlement(entitlementCode: string): Promise<boolean> {
+  return authenticatedRpc<boolean>("has_my_membership_entitlement", {
+    requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
+    requested_entitlement_code: entitlementCode,
+  });
+}
+
 export async function createMembershipCheckout(planPublicId: string): Promise<MembershipCheckoutResult> {
   return authenticatedFunction<MembershipCheckoutResult>("create-membership-checkout", {
     plan_public_id: planPublicId,

@@ -11,9 +11,13 @@ import {
 export function EpisodeCard({
   ep,
   size = "md",
+  memberOnly = false,
+  badge,
 }: {
   ep: PublicContentCard;
   size?: "sm" | "md" | "lg";
+  memberOnly?: boolean;
+  badge?: string | null;
 }) {
   const widths = {
     sm: "min-w-[260px] w-[260px]",
@@ -27,7 +31,7 @@ export function EpisodeCard({
 
   return (
     <Link
-      to="/watch/$slug"
+      to={memberOnly ? "/watch/member/$slug" : "/watch/$slug"}
       params={{ slug: ep.slug }}
       className={`${widths[size]} group block max-w-full`}
     >
@@ -46,9 +50,9 @@ export function EpisodeCard({
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent opacity-80" />
         <div className="absolute top-2 left-2 bg-background/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest px-2 py-1 text-brand">
-          {ep.season_number != null && ep.episode_number != null
+          {badge || (ep.season_number != null && ep.episode_number != null
             ? `S${ep.season_number} • E${ep.episode_number}`
-            : formatLabel}
+            : formatLabel)}
         </div>
         <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm text-[10px] font-medium px-2 py-1">
           {formatDuration(ep.duration_seconds)}
