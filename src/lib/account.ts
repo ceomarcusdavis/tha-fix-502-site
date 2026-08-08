@@ -63,6 +63,29 @@ export type PublicMembershipPlan = {
   entitlements: MembershipEntitlement[];
 };
 
+export type MyMembership = {
+  membership_public_id: string;
+  plan_code: string;
+  plan_name: string;
+  membership_status: "pending" | "active" | "past_due" | string;
+  renewal_status: "auto_renew" | "cancel_at_period_end" | "not_applicable" | "canceled" | string;
+  started_at: string | null;
+  current_period_end: string | null;
+  access_ends_at: string | null;
+  price_label: string | null;
+  amount_cents: number;
+  currency: string;
+  price_protected: boolean;
+  entitlements: MembershipEntitlement[];
+};
+
+export type MembershipCheckoutResult = {
+  checkout_url: string;
+  checkout_session_id: string;
+  reservation_public_id: string;
+  expires_at: string;
+};
+
 function getStoredSession(): AuthSession | null {
   if (typeof window === "undefined") return null;
   const raw = window.localStorage.getItem(SESSION_KEY);
@@ -240,6 +263,23 @@ async function authenticatedRpc<T>(name: string, body: Record<string, unknown>):
   return (await response.json()) as T;
 }
 
+async function authenticatedFunction<T>(name: string, body: Record<string, unknown> = {}): Promise<T> {
+  const session = await getSession();
+  if (!session) throw new Error("Please sign in to continue.");
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/${name}`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${session.access_token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) return parseError(response, "The request could not be completed.");
+  return (await response.json()) as T;
+}
+
 export async function getMyAccount(): Promise<MyOrganizationAccount | null> {
   const rows = await authenticatedRpc<MyOrganizationAccount[]>("get_my_organization_account", {
     requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
@@ -291,4 +331,21 @@ export async function getPublicMembershipPlans(): Promise<PublicMembershipPlan[]
   });
   if (!response.ok) return parseError(response, "We couldn’t load membership plans right now.");
   return (await response.json()) as PublicMembershipPlan[];
+}
+
+export async function getMyMembership(): Promise<MyMembership | null> {
+  const rows = await authenticatedRpc<MyMembership[]>("get_my_membership", {
+    requested_organization_public_id: THA_FIX_ORGANIZATION_ID,
+  });
+  return rows[0] ?? null;
+}
+
+export async function createMembershipCheckout(planPublicId: string): Promise<MembershipCheckoutResult> {
+  return authenticatedFunction<MembershipCheckoutResult>("create-membership-checkout", {
+    plan_public_id: planPublicId,
+  });
+}
+
+export async function createBillingPortalSession(): Promise<{ portal_url: string }> {
+  return authenticatedFunction<{ portal_url: string }>("create-billing-portal-session");
 }

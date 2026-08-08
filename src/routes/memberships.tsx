@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Check, Eye, MessageSquare, Users, Sparkles, ArrowRight } from "lucide-react";
-import { getPublicMembershipPlans, PublicMembershipPlan } from "@/lib/account";
+import { getPublicMembershipPlans, getSession, PublicMembershipPlan } from "@/lib/account";
 import { PageHero } from "@/components/page-hero";
 import {
   Accordion,
@@ -49,8 +50,8 @@ const whyCards = [
 const howSteps = [
   { title: "Choose your membership", body: "Select The Audience, The Network, or the limited Founder offer." },
   { title: "Create your account", body: "Memberships are personal, available only to adults 18 or older, and cannot be shared or transferred." },
-  { title: "Complete secure checkout", body: "Payments will be processed securely through Stripe when checkout is activated." },
-  { title: "Access your benefits", body: "Sign in to your member account and follow the onboarding instructions sent by email." },
+  { title: "Complete secure checkout", body: "Sign in, choose your plan, and complete payment securely inside Tha Fix through Stripe." },
+  { title: "Access your benefits", body: "After Stripe confirms payment, your Tha Fix membership is activated automatically." },
   { title: "Stay connected", body: "Receive member announcements, content updates, session information, and applicable opportunities." },
 ];
 
@@ -110,6 +111,26 @@ function MembershipsPage() {
     queryKey: ["public-membership-plans"],
     queryFn: getPublicMembershipPlans,
   });
+  const [checkoutPlanId, setCheckoutPlanId] = useState<string | null>(null);
+  const [checkoutError, setCheckoutError] = useState("");
+
+  async function startCheckout(plan: PublicMembershipPlan) {
+    setCheckoutError("");
+    const session = await getSession();
+    if (!session) {
+      window.location.assign("/signup");
+      return;
+    }
+
+    setCheckoutPlanId(plan.plan_public_id);
+    try {
+      window.location.assign(`/membership-checkout?plan=${encodeURIComponent(plan.plan_public_id)}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "We couldn’t start checkout.";
+      setCheckoutError(message);
+      setCheckoutPlanId(null);
+    }
+  }
 
   return (
     <>
@@ -146,10 +167,12 @@ function MembershipsPage() {
         </div>
         {isLoading && <p className="text-center text-muted-foreground">Loading membership plans…</p>}
         {isError && <p className="text-center text-destructive">Membership plans are temporarily unavailable.</p>}
+        {checkoutError && <div className="max-w-3xl mx-auto px-6 lg:px-10 mb-8"><p role="alert" className="border border-destructive/30 bg-destructive/5 text-destructive p-4 text-sm">{checkoutError}</p></div>}
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-3 gap-6">
           {plans.map((plan) => {
             const featured = plan.plan_code === "network";
             const remaining = plan.price_enrollment_limit == null ? null : Math.max(0, plan.price_enrollment_limit - plan.price_enrollments_used);
+            const checkingOut = checkoutPlanId === plan.plan_public_id;
             return (
               <div key={plan.plan_public_id} className={`relative p-8 flex flex-col border ${featured ? "bg-brand text-brand-foreground border-brand shadow-2xl md:scale-105" : "bg-surface border-border"}`}>
                 {featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-foreground text-background text-[10px] font-bold uppercase tracking-widest px-3 py-1">Most Popular</div>}
@@ -166,8 +189,10 @@ function MembershipsPage() {
                 <ul className="space-y-3 mb-10 flex-1">
                   {planFeatures(plan).map((feature) => <li key={feature} className="flex items-start gap-3 text-sm"><Check className="w-4 h-4 shrink-0 mt-0.5" /><span>{feature}</span></li>)}
                 </ul>
-                <Link to="/signup" className={`w-full py-4 text-center text-xs font-bold uppercase tracking-widest transition-colors ${featured ? "bg-foreground text-background hover:bg-background hover:text-foreground" : "bg-brand text-brand-foreground hover:brightness-110"}`}>Create Account to Join</Link>
-                <p className={`mt-4 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>Secure Stripe checkout is being activated. Creating your account now prepares you for enrollment; no payment is collected on this button.</p>
+                <button type="button" disabled={Boolean(checkoutPlanId) || !plan.enrollment_open} onClick={() => startCheckout(plan)} className={`w-full py-4 text-center text-xs font-bold uppercase tracking-widest transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${featured ? "bg-foreground text-background hover:bg-background hover:text-foreground" : "bg-brand text-brand-foreground hover:brightness-110"}`}>
+                  {checkingOut ? "Opening Secure Checkout…" : plan.enrollment_open ? "Join This Membership" : "Enrollment Closed"}
+                </button>
+                <p className={`mt-4 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>Account and 18+ verification are required. Payment is completed securely inside Tha Fix using Stripe, and membership access activates only after Stripe confirms payment.</p>
                 {cardDisclosures[plan.plan_code] && <p className={`mt-3 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>{cardDisclosures[plan.plan_code]}</p>}
               </div>
             );
