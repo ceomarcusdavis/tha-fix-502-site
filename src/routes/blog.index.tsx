@@ -1,9 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import { Search, PenLine } from "lucide-react";
 import { blogPosts } from "@/data/content";
 import { BlogCard } from "@/components/blog-card";
 import { PageHero } from "@/components/page-hero";
+import { useMembershipAccess } from "@/hooks/use-membership-access";
+import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 
 export const Route = createFileRoute("/blog/")({
   head: () => ({
@@ -24,6 +26,8 @@ function BlogPage() {
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("All");
   const [sort, setSort] = useState<(typeof sorts)[number]>("Latest");
+  const access = useMembershipAccess();
+  const canPublish = access.has(MEMBERSHIP_ENTITLEMENTS.blogPublish);
 
   const filtered = useMemo(() => {
     let list = blogPosts.filter((p) =>
@@ -45,6 +49,42 @@ function BlogPage() {
         title="Notes from the network."
         description="Long-form perspectives and conversations beyond the mic — with members joining the discussion in the comments and eligible members publishing content of their own."
       />
+
+      {!access.isLoading && (
+        <section className="border-b border-border bg-surface">
+          <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-6">
+            {canPublish ? (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <PenLine className="w-5 h-5 text-brand mt-0.5" />
+                  <div>
+                    <h2 className="font-display text-xl font-bold">Your membership includes blog publishing.</h2>
+                    <p className="text-sm text-muted-foreground mt-1">Member authoring and submission tools are being connected to the Tha Fix review workflow before launch.</p>
+                  </div>
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-brand">Publishing Access Active</span>
+              </div>
+            ) : access.isSignedIn ? (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-lg font-bold">Want to publish on Tha Fix?</h2>
+                  <p className="text-sm text-muted-foreground mt-1">Blog publishing is included with eligible Network and Founder memberships.</p>
+                </div>
+                <Link to="/memberships" className="text-brand text-xs font-bold uppercase tracking-widest border-b border-brand self-start md:self-auto">Compare Memberships →</Link>
+              </div>
+            ) : (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-lg font-bold">Members can join the conversation.</h2>
+                  <p className="text-sm text-muted-foreground mt-1">Paid members can comment, and eligible Network and Founder members can publish content.</p>
+                </div>
+                <Link to="/memberships" className="text-brand text-xs font-bold uppercase tracking-widest border-b border-brand self-start md:self-auto">Explore Memberships →</Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       <section className="py-10 border-b border-border">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row lg:items-center gap-5">
           <div className="relative flex-1 max-w-md">
