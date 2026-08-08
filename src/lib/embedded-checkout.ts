@@ -4,6 +4,7 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://hwiuxhenoogdi
 const SUPABASE_PUBLISHABLE_KEY =
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_KTDIiehW5udh-Q60dwnIdw_tdTn-u7Q";
 
+// Browser-safe Stripe key injected by Netlify at Vite build time.
 export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "";
 
 export type EmbeddedCheckoutResult = {
