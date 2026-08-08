@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Check, Eye, MessageSquare, Users, Sparkles, ArrowRight } from "lucide-react";
-import { createMembershipCheckout, getPublicMembershipPlans, getSession, PublicMembershipPlan } from "@/lib/account";
+import { getPublicMembershipPlans, getSession, PublicMembershipPlan } from "@/lib/account";
 import { PageHero } from "@/components/page-hero";
 import {
   Accordion,
@@ -50,7 +50,7 @@ const whyCards = [
 const howSteps = [
   { title: "Choose your membership", body: "Select The Audience, The Network, or the limited Founder offer." },
   { title: "Create your account", body: "Memberships are personal, available only to adults 18 or older, and cannot be shared or transferred." },
-  { title: "Complete secure checkout", body: "Sign in, choose your plan, and complete payment securely through Stripe." },
+  { title: "Complete secure checkout", body: "Sign in, choose your plan, and complete payment securely inside Tha Fix through Stripe." },
   { title: "Access your benefits", body: "After Stripe confirms payment, your Tha Fix membership is activated automatically." },
   { title: "Stay connected", body: "Receive member announcements, content updates, session information, and applicable opportunities." },
 ];
@@ -124,15 +124,10 @@ function MembershipsPage() {
 
     setCheckoutPlanId(plan.plan_public_id);
     try {
-      const result = await createMembershipCheckout(plan.plan_public_id);
-      window.location.assign(result.checkout_url);
+      window.location.assign(`/membership-checkout?plan=${encodeURIComponent(plan.plan_public_id)}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : "We couldn’t start checkout.";
       setCheckoutError(message);
-      if (/complete your account|18|onboarding/i.test(message)) {
-        window.setTimeout(() => window.location.assign("/account"), 1200);
-      }
-    } finally {
       setCheckoutPlanId(null);
     }
   }
@@ -197,7 +192,7 @@ function MembershipsPage() {
                 <button type="button" disabled={Boolean(checkoutPlanId) || !plan.enrollment_open} onClick={() => startCheckout(plan)} className={`w-full py-4 text-center text-xs font-bold uppercase tracking-widest transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${featured ? "bg-foreground text-background hover:bg-background hover:text-foreground" : "bg-brand text-brand-foreground hover:brightness-110"}`}>
                   {checkingOut ? "Opening Secure Checkout…" : plan.enrollment_open ? "Join This Membership" : "Enrollment Closed"}
                 </button>
-                <p className={`mt-4 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>Account and 18+ verification are required. Payment is completed on Stripe’s secure checkout page, and membership access activates only after Stripe confirms payment.</p>
+                <p className={`mt-4 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>Account and 18+ verification are required. Payment is completed securely inside Tha Fix using Stripe, and membership access activates only after Stripe confirms payment.</p>
                 {cardDisclosures[plan.plan_code] && <p className={`mt-3 text-[11px] leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>{cardDisclosures[plan.plan_code]}</p>}
               </div>
             );
