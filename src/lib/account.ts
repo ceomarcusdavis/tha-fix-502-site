@@ -198,7 +198,7 @@ export async function sendPasswordReset(email: string) {
       apikey: SUPABASE_PUBLISHABLE_KEY,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: email.trim().toLowerCase(), password: undefined, redirect_to: redirectTo }),
+    body: JSON.stringify({ email: email.trim().toLowerCase(), redirect_to: redirectTo }),
   });
   if (!response.ok) return parseError(response, "We couldn’t send a password-reset email.");
 }
