@@ -1,17 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { LockKeyhole, MessageCircle, Send, Vote } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { useMembershipAccess } from "@/hooks/use-membership-access";
 import { MEMBERSHIP_ENTITLEMENTS } from "@/lib/membership-access";
 import {
   createMyCommunityDiscussion,
+  createMyCommunityDiscussionReply,
   createMyCommunityTopicSubmission,
+  getMyCommunityDiscussionReplies,
   getMyCommunityDiscussions,
   getMyCommunityTopicSubmissions,
   getMyOpenCommunityTopicPolls,
   voteMyCommunityTopicPoll,
+  type CommunityDiscussion,
   type CommunitySpaceCode,
 } from "@/lib/community";
 
@@ -26,6 +29,9 @@ export const Route = createFileRoute("/community/member")({
   component: MemberCommunityPage,
 });
 
+const fieldClass = "w-full border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:border-brand";
+const primaryButtonClass = "inline-flex items-center justify-center bg-brand text-brand-foreground px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#6A33A5] transition-colors";
+
 function MemberCommunityPage() {
   const access = useMembershipAccess();
 
@@ -38,7 +44,7 @@ function MemberCommunityPage() {
       <AccessMessage
         title="Sign in to enter the member community"
         body="Community participation is available through an eligible Tha Fix membership."
-        action={<Link to="/login" className="cta">Sign In</Link>}
+        action={<Link to="/login" className={primaryButtonClass}>Sign In</Link>}
       />
     );
   }
@@ -48,7 +54,7 @@ function MemberCommunityPage() {
       <AccessMessage
         title="Membership access required"
         body="Join The Audience or a higher membership level to participate in Tha Fix member discussions and submit questions or topics."
-        action={<Link to="/memberships" className="cta">View Memberships</Link>}
+        action={<Link to="/memberships" className={primaryButtonClass}>View Memberships</Link>}
       />
     );
   }
@@ -56,7 +62,7 @@ function MemberCommunityPage() {
   return <CommunityWorkspace />;
 }
 
-function AccessMessage({ title, body, action }: { title: string; body: string; action: React.ReactNode }) {
+function AccessMessage({ title, body, action }: { title: string; body: string; action: ReactNode }) {
   return (
     <div className="min-h-[70vh] grid place-items-center px-6 py-20">
       <div className="max-w-xl text-center border border-border bg-surface p-10">
@@ -137,10 +143,10 @@ function DiscussionPanel({ space }: { space: CommunitySpaceCode }) {
 
       <div className="border border-border bg-surface p-6 mb-8">
         <h3 className="font-display text-xl font-bold mb-4">Start a discussion</h3>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={180} placeholder="Discussion title" className="field mb-3" />
-        <textarea value={body} onChange={(e) => setBody(e.target.value)} maxLength={6000} rows={5} placeholder="What do you want to talk about?" className="field resize-y" />
+        <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={180} placeholder="Discussion title" className={`${fieldClass} mb-3`} />
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} maxLength={6000} rows={5} placeholder="What do you want to talk about?" className={`${fieldClass} resize-y`} />
         {create.error ? <p className="text-sm text-red-600 mt-3">{(create.error as Error).message}</p> : null}
-        <button disabled={create.isPending || title.trim().length < 3 || body.trim().length < 1} onClick={() => create.mutate()} className="cta mt-4 disabled:opacity-50">
+        <button disabled={create.isPending || title.trim().length < 3 || body.trim().length < 1} onClick={() => create.mutate()} className={`${primaryButtonClass} mt-4 disabled:opacity-50`}>
           {create.isPending ? "Posting…" : "Post Discussion"}
         </button>
       </div>
@@ -154,15 +160,72 @@ function DiscussionPanel({ space }: { space: CommunitySpaceCode }) {
       ) : null}
       <div className="space-y-4">
         {discussions.data?.map((discussion) => (
-          <article key={discussion.discussion_public_id} className="border border-border bg-surface p-6">
-            <div className="text-xs uppercase tracking-widest text-muted-foreground mb-2">{discussion.author_display_name}</div>
-            <h3 className="font-display text-2xl font-bold mb-3">{discussion.title}</h3>
-            <p className="text-foreground/80 whitespace-pre-wrap mb-4">{discussion.body_text}</p>
-            <div className="text-xs text-muted-foreground">{discussion.reply_count} {discussion.reply_count === 1 ? "reply" : "replies"} · {new Date(discussion.created_at).toLocaleString()}</div>
-          </article>
+          <DiscussionCard key={discussion.discussion_public_id} discussion={discussion} />
         ))}
       </div>
     </div>
+  );
+}
+
+function DiscussionCard({ discussion }: { discussion: CommunityDiscussion }) {
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [replyBody, setReplyBody] = useState("");
+  const replies = useQuery({
+    queryKey: ["community-discussion-replies", discussion.discussion_public_id],
+    queryFn: () => getMyCommunityDiscussionReplies(discussion.discussion_public_id),
+    enabled: open,
+    retry: false,
+  });
+  const reply = useMutation({
+    mutationFn: () => createMyCommunityDiscussionReply(discussion.discussion_public_id, replyBody),
+    onSuccess: async () => {
+      setReplyBody("");
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["community-discussion-replies", discussion.discussion_public_id] }),
+        queryClient.invalidateQueries({ queryKey: ["community-discussions", discussion.space_code] }),
+      ]);
+    },
+  });
+
+  return (
+    <article className="border border-border bg-surface p-6">
+      <div className="text-xs uppercase tracking-widest text-muted-foreground mb-2">{discussion.author_display_name}</div>
+      <h3 className="font-display text-2xl font-bold mb-3">{discussion.title}</h3>
+      <p className="text-foreground/80 whitespace-pre-wrap mb-4">{discussion.body_text}</p>
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
+        <span>{discussion.reply_count} {discussion.reply_count === 1 ? "reply" : "replies"} · {new Date(discussion.created_at).toLocaleString()}</span>
+        <button type="button" onClick={() => setOpen((value) => !value)} className="font-bold uppercase tracking-widest text-brand hover:text-accent">
+          {open ? "Hide Replies" : discussion.reply_count > 0 ? "View & Reply" : "Reply"}
+        </button>
+      </div>
+
+      {open ? (
+        <div className="mt-6 pt-5 border-t border-border">
+          {replies.isLoading ? <p className="text-sm text-muted-foreground">Loading replies…</p> : null}
+          {replies.error ? <p className="text-sm text-red-600">{(replies.error as Error).message}</p> : null}
+          {(replies.data?.length ?? 0) > 0 ? (
+            <div className="space-y-3 mb-5">
+              {replies.data?.map((item) => (
+                <div key={item.reply_public_id} className="border-l-2 border-brand/30 pl-4 py-1">
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{item.author_display_name}</div>
+                  <p className="text-sm text-foreground/80 whitespace-pre-wrap">{item.body_text}</p>
+                  <div className="text-[10px] text-muted-foreground mt-1">{new Date(item.created_at).toLocaleString()}</div>
+                </div>
+              ))}
+            </div>
+          ) : !replies.isLoading ? (
+            <p className="text-sm text-muted-foreground mb-5">No replies yet.</p>
+          ) : null}
+
+          <textarea value={replyBody} onChange={(e) => setReplyBody(e.target.value)} maxLength={4000} rows={3} placeholder="Add your reply…" className={`${fieldClass} resize-y`} />
+          {reply.error ? <p className="text-sm text-red-600 mt-3">{(reply.error as Error).message}</p> : null}
+          <button disabled={reply.isPending || replyBody.trim().length < 1} onClick={() => reply.mutate()} className={`${primaryButtonClass} mt-3 disabled:opacity-50`}>
+            {reply.isPending ? "Posting…" : "Post Reply"}
+          </button>
+        </div>
+      ) : null}
+    </article>
   );
 }
 
@@ -194,10 +257,10 @@ function SubmissionPanel() {
           <button key={type} onClick={() => setSubmissionType(type)} className={tabClass(submissionType === type)}>{type === "question" ? "Question" : "Topic Idea"}</button>
         ))}
       </div>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={240} placeholder={submissionType === "question" ? "Your question" : "Your topic idea"} className="field mb-3" />
-      <textarea value={details} onChange={(e) => setDetails(e.target.value)} maxLength={4000} rows={4} placeholder="Add context (optional)" className="field resize-y" />
+      <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={240} placeholder={submissionType === "question" ? "Your question" : "Your topic idea"} className={`${fieldClass} mb-3`} />
+      <textarea value={details} onChange={(e) => setDetails(e.target.value)} maxLength={4000} rows={4} placeholder="Add context (optional)" className={`${fieldClass} resize-y`} />
       {create.error ? <p className="text-sm text-red-600 mt-3">{(create.error as Error).message}</p> : null}
-      <button disabled={create.isPending || title.trim().length < 3} onClick={() => create.mutate()} className="cta mt-4 disabled:opacity-50">{create.isPending ? "Sending…" : "Submit"}</button>
+      <button disabled={create.isPending || title.trim().length < 3} onClick={() => create.mutate()} className={`${primaryButtonClass} mt-4 disabled:opacity-50`}>{create.isPending ? "Sending…" : "Submit"}</button>
       {(submissions.data?.length ?? 0) > 0 ? (
         <div className="mt-6 pt-5 border-t border-border">
           <div className="text-xs font-bold uppercase tracking-widest mb-3">Your Recent Submissions</div>
