@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Share2, Heart, Calendar, Clock } from "lucide-react";
 import { blogPosts } from "@/data/content";
 import { BlogCard } from "@/components/blog-card";
+import { BlogComments } from "@/components/blog-comments";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -80,6 +81,7 @@ function PostPage() {
                 <Heart className="w-4 h-4" /> Save
               </button>
             </div>
+            <BlogComments slug={post.slug} />
           </div>
           <aside className="space-y-6">
             <div className="bg-surface border border-border p-6">
@@ -90,8 +92,8 @@ function PostPage() {
             <Link to="/memberships" className="block bg-brand text-brand-foreground p-6 hover:bg-[#6A33A5] transition-colors">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-70 mb-2">Members Get More</div>
               <h3 className="font-display text-2xl font-bold mb-3">Join the conversation</h3>
-              <p className="text-sm opacity-80 mb-4">Comment on posts, publish your own, and access the full member archive.</p>
-              <span className="text-xs font-bold uppercase tracking-widest border-b border-current pb-0.5">Become a Member →</span>
+              <p className="text-sm opacity-80 mb-4">Comment on posts and unlock additional member benefits. Eligible Network and Founder members can also publish content.</p>
+              <span className="text-xs font-bold uppercase tracking-widest border-b border-current pb-0.5">View Memberships →</span>
             </Link>
             <Link to="/shop" className="block bg-surface border border-border p-6 hover:border-accent transition-colors">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand mb-2">Wear It</div>
